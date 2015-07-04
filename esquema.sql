@@ -1,13 +1,19 @@
 
+CREATE SEQUENCE public.rol_id_seq;
+
 CREATE TABLE public.rol (
-                id INTEGER NOT NULL,
-                nombre VARCHAR NOT NULL,
+                id INTEGER NOT NULL DEFAULT nextval('public.rol_id_seq'),
+                nombre VARCHAR(40) NOT NULL,
                 CONSTRAINT rol_primary_key PRIMARY KEY (id)
 );
 
 
+ALTER SEQUENCE public.rol_id_seq OWNED BY public.rol.id;
+
+CREATE SEQUENCE public.usuario_id_seq;
+
 CREATE TABLE public.usuario (
-                id INTEGER NOT NULL,
+                id INTEGER NOT NULL DEFAULT nextval('public.usuario_id_seq'),
                 nombre VARCHAR(50) NOT NULL,
                 correo VARCHAR(100) NOT NULL,
                 apellidos VARCHAR(100) NOT NULL,
@@ -18,17 +24,25 @@ CREATE TABLE public.usuario (
 );
 
 
+ALTER SEQUENCE public.usuario_id_seq OWNED BY public.usuario.id;
+
+CREATE SEQUENCE public.categoria_id_seq;
+
 CREATE TABLE public.categoria (
-                id INTEGER NOT NULL,
-                nombre VARCHAR NOT NULL,
+                id INTEGER NOT NULL DEFAULT nextval('public.categoria_id_seq'),
+                nombre VARCHAR(60) NOT NULL,
                 CONSTRAINT categoria_primary_key PRIMARY KEY (id)
 );
 
 
+ALTER SEQUENCE public.categoria_id_seq OWNED BY public.categoria.id;
+
+CREATE SEQUENCE public.publicacion_id_seq;
+
 CREATE TABLE public.publicacion (
-                id INTEGER NOT NULL,
+                id INTEGER NOT NULL DEFAULT nextval('public.publicacion_id_seq'),
                 titulo VARCHAR(60) NOT NULL,
-                contenido TEXT NOT NULL,
+                contenido VARCHAR NOT NULL,
                 descripcion VARCHAR(100) NOT NULL,
                 fecha_publicacion TIMESTAMP NOT NULL,
                 banner_small VARCHAR NOT NULL,
@@ -38,6 +52,8 @@ CREATE TABLE public.publicacion (
                 CONSTRAINT publicacion_primary_key PRIMARY KEY (id)
 );
 
+
+ALTER SEQUENCE public.publicacion_id_seq OWNED BY public.publicacion.id;
 
 CREATE SEQUENCE public.publicacion_categoria_id_sequence;
 
