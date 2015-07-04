@@ -11,6 +11,8 @@ import java.util.List;
 /**
  *
  * @author Hugo
+ * @param <Entity>
+ * @param <KeyType>
  */
 public interface BaseRepository<Entity, KeyType> {
     
