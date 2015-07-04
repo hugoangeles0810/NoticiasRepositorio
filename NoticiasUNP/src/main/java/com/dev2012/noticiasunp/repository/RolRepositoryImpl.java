@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
  * @author Hugo
  */
 @Repository
-public class RolRepositoryImpl extends BaseRepositoryImpl<Rol, Integer>{
+public class RolRepositoryImpl extends BaseRepositoryImpl<Rol, Integer>
+                implements RolRepository{
     
 }
