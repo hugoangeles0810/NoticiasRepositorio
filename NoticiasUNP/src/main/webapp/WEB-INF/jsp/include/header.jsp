@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -41,12 +42,18 @@
                         </div>
                     </div>
                     <div class="col-sm-3 login-controls">
+                        <sec:authorize access="!isAuthenticated()">
                         <div class="row">
                             <a class="btn btn-primary btn-login">Registrarse</a>
                         </div>
                         <div class="row">
-                            <a class="btn btn-primary btn-login">Inicia Sesión</a>
+                            <a href="login.html" class="btn btn-primary btn-login">Inicia Sesión</a>
                         </div>
+                        </sec:authorize>
+                        <sec:authorize access="isAuthenticated()">
+                            <p>Usuario: <sec:authentication property="principal.username" /> </p>
+                            <a href="logout" class="btn btn-danger btn-sm">Salir</a>
+                        </sec:authorize>
                     </div>
                 </div>
             </div>

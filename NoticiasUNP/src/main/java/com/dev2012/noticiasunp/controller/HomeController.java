@@ -26,6 +26,11 @@ public class HomeController {
         return "index";
     }
     
+    @RequestMapping(value = "/login.html", method = RequestMethod.GET)
+    public String login(){
+        return "login";
+    }
+    
     @RequestMapping(value = "/saludo.json", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> saludo(){
