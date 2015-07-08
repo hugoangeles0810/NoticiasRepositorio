@@ -27,7 +27,7 @@
                                 <h1 id="logo-text">Noticias UNP</h1>
                             </div>
                         </a>
-                        <div class="col-sm-offset-7">
+                        <div class="col-sm-offset-6">
                             <h4 id="fecha" ></h4>
                         </div>
                     </div>
@@ -44,10 +44,10 @@
                     <div class="col-sm-3 login-controls">
                         <sec:authorize access="!isAuthenticated()">
                         <div class="row">
-                            <a class="btn btn-primary btn-login">Registrarse</a>
+                            <a id="btn-logup" class="btn btn-primary btn-login">Registrarse</a>
                         </div>
                         <div class="row">
-                            <a href="login.html" class="btn btn-primary btn-login">Inicia Sesión</a>
+                            <a id="btn-login" class="btn btn-primary btn-login">Inicia Sesión</a>
                         </div>
                         </sec:authorize>
                         <sec:authorize access="isAuthenticated()">

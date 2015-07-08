@@ -15,4 +15,17 @@
     </div>
 </section>
 
+<div id="dialog" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel"><span class="glyphicon glyphicon-user"></span>&nbsp; Iniciar Sesión / Registrate</h4>
+            </div>
+            <div id="dialog-content" class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
+
 <%@include file="include/footer.jsp" %>

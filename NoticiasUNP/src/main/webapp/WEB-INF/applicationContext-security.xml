@@ -14,14 +14,15 @@
         <security:logout logout-url="/logout" logout-success-url="/index.html"/> 
     </security:http>
     
-    <security:authentication-manager>
+    <security:authentication-manager alias="authenticationManager">
         <security:authentication-provider>
+            <security:password-encoder hash="sha" />
             <security:user-service>
                 
-                <security:user name="hugo" password="angeles" authorities="admin, user" />
-                <security:user name="roberto" password="correa" authorities="admin, user" />
-                <security:user name="carlos" password="adrianzen" authorities="admin, user" />
-                <security:user name="user" password="user" authorities="user" />
+                <security:user name="hugo" password="c403b7f3fc9e411fc1825f86e32e777c497d1b8b" authorities="admin, user" />
+                <security:user name="roberto" password="29b502e872f1e57b361040ebfa1a7963c7da92de" authorities="admin, user" />
+                <security:user name="carlos" password="d05238b27c80b1ef28d311d0d08929ba9b1e948e" authorities="admin, user" />
+                <security:user name="user" password="12dea96fec20593566ab75692c9949596833adc9" authorities="user" />
             </security:user-service>
         </security:authentication-provider>
     </security:authentication-manager>

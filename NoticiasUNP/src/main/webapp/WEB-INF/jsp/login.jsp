@@ -5,17 +5,22 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login</title>
-    </head>
-    <body>
-        <h1>Login</h1>
-        <form action="j_spring_security_check" method="POST">
-            <input type="text" placeholder="Email" name="j_username" /><br>
-            <input type="password" placeholder="Password" name="j_password" /><br>
-            <input type="submit" value="Ingresar"/>
-    </body>
-</html>
+<div id="login-error-msg" class="alert alert-danger alert-dismissible" role="alert" style="display: none;">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <div id="error-msg">Usuario y/o password incorrecto.</div>
+</div>
+<form id="login-form" class="form-horizontal" method="POST" action="j_spring_security_check">
+    <div class="form-group">
+        <label for="usuario" class="col-sm-3 control-label">Usuario</label>
+        <div class="col-sm-7">
+            <input id="usuario" type="text" name="j_username" class="form-control" autofocus required/>
+        </div> 
+    </div>
+    <div class="form-group">
+        <label for="password" class="col-sm-3 control-label">Password</label>
+        <div class="col-sm-7">
+            <input id="password" type="password" name="j_password" class="form-control" required /><br>
+        </div> 
+    </div>
+    <input type="submit" value="Entrar" class="col-sm-offset-5 btn btn-primary" />
+</form>
