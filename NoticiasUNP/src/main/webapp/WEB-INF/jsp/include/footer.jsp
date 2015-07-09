@@ -13,6 +13,7 @@
         </footer>
 
         <script src="resources/libs/js/jquery.min.js"></script>
+        <script src="resources/libs/js/jquery.jsonify.min.js"></script>
         <script src="resources/libs/js/bootstrap.min.js"></script>
         <script src="resources/js/main.js"></script>
     </body>

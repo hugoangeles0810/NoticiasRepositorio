@@ -31,11 +31,11 @@ public class PublicacionCategoria implements Serializable {
     @Column(name = "id")
     private Integer id;
     @JoinColumn(name = "publicacion_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Publicacion publicacionId;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Publicacion publicacion;
     @JoinColumn(name = "categoria_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Categoria categoriaId;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Categoria categoria;
 
     public PublicacionCategoria() {
     }
@@ -52,20 +52,20 @@ public class PublicacionCategoria implements Serializable {
         this.id = id;
     }
 
-    public Publicacion getPublicacionId() {
-        return publicacionId;
+    public Publicacion getPublicacion() {
+        return publicacion;
     }
 
-    public void setPublicacionId(Publicacion publicacionId) {
-        this.publicacionId = publicacionId;
+    public void setPublicacion(Publicacion publicacion) {
+        this.publicacion = publicacion;
     }
 
-    public Categoria getCategoriaId() {
-        return categoriaId;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setCategoriaId(Categoria categoriaId) {
-        this.categoriaId = categoriaId;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     @Override

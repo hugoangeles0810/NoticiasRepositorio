@@ -5,12 +5,17 @@
  */
 package com.dev2012.noticiasunp.controller;
 
+import com.dev2012.noticiasunp.entity.Categoria;
+import com.dev2012.noticiasunp.service.CategoriaService;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 
 
@@ -21,21 +26,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class HomeController {
     
+    @Autowired
+    private CategoriaService categoriaService;
+    
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
-    public String home(){
-        return "index";
-    }
-    
-    @RequestMapping(value = "/login.html", method = RequestMethod.GET)
-    public String login(){
-        return "login";
-    }
-    
-    @RequestMapping(value = "/saludo.json", method = RequestMethod.GET)
-    @ResponseBody
-    public Map<String, Object> saludo(){
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("saludo", "Hola Tarolas");
-        return map;
+    public ModelAndView home(){
+        ModelAndView mv = new ModelAndView("index");
+        mv.addObject("categorias", categoriaService.getAll());
+        return mv;
     }
 }

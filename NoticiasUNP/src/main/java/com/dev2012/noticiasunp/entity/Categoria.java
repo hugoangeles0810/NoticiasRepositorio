@@ -38,9 +38,9 @@ public class Categoria implements Serializable {
     @Size(min = 1, max = 60)
     @Column(name = "nombre")
     private String nombre;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoriaId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria", fetch = FetchType.LAZY)
     private List<PublicacionCategoria> publicacionCategoriaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoriaId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria", fetch = FetchType.LAZY)
     private List<Publicacion> publicacionList;
 
     public Categoria() {

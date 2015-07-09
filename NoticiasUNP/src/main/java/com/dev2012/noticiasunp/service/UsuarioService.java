@@ -13,4 +13,6 @@ import com.dev2012.noticiasunp.entity.Usuario;
  */
 public interface UsuarioService extends BaseService<Usuario, Integer>{
     
+    public Usuario buscarUsuarioPorCorreo(String correo);
+    
 }

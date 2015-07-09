@@ -44,7 +44,7 @@
                     <div class="col-sm-3 login-controls">
                         <sec:authorize access="!isAuthenticated()">
                         <div class="row">
-                            <a id="btn-logup" class="btn btn-primary btn-login">Registrarse</a>
+                            <a id="btn-register" class="btn btn-primary btn-login">Registrarse</a>
                         </div>
                         <div class="row">
                             <a id="btn-login" class="btn btn-primary btn-login">Inicia Sesión</a>

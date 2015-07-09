@@ -68,14 +68,14 @@ public class Publicacion implements Serializable {
     @Size(min = 1, max = 2147483647)
     @Column(name = "banner_large")
     private String bannerLarge;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "publicacionId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "publicacion", fetch = FetchType.LAZY)
     private List<PublicacionCategoria> publicacionCategoriaList;
     @JoinColumn(name = "autor_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario autorId;
     @JoinColumn(name = "categoria_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Categoria categoriaId;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Categoria categoria;
 
     public Publicacion() {
     }
@@ -166,12 +166,12 @@ public class Publicacion implements Serializable {
         this.autorId = autorId;
     }
 
-    public Categoria getCategoriaId() {
-        return categoriaId;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setCategoriaId(Categoria categoriaId) {
-        this.categoriaId = categoriaId;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     @Override

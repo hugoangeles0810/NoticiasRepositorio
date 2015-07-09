@@ -41,15 +41,15 @@ jQuery.fn.shakeit = function (intShakes, intDistance, intDuration) {
                             type: 'POST',
                             dataType: 'json',
                             data: $("#login-form").serialize(),
-                            success: function(data){
-                                if (!data.success){
+                            success: function (data) {
+                                if (!data.success) {
                                     $("#login-error-msg").show();
-                                }else{
+                                } else {
                                     window.location.reload();
                                 }
                                 console.log(data);
                             },
-                            error: function(data){
+                            error: function (data) {
                                 console.log(data);
                             }
                         });
@@ -59,8 +59,42 @@ jQuery.fn.shakeit = function (intShakes, intDistance, intDuration) {
             });
         });
 
-
-
+        $("#btn-register").click(function () {
+            $.ajax({
+                url: 'register.html',
+                type: 'GET',
+                dataType: 'html',
+                success: function (data) {
+                    $("#dialog-content").html(data);
+                    $("#register-form").submit(function (e) {
+                        e.preventDefault();
+                        $.ajax({
+                            url: 'register.json',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: JSON.stringify($("#register-form").jsonify()),
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader("Accept", "application/json");
+                                xhr.setRequestHeader("Content-Type", "application/json");
+                            },
+                            success: function (data) {
+                                if (!data.success){
+                                    $("#login-error-msg").show();
+                                    $("#error-msg").html(data.error);
+                                } else {
+                                    window.location.reload();
+                                }
+                                console.log(data);
+                            },
+                            error: function (error) {
+                                console.log(error);
+                            }
+                        });
+                    });
+                    $("#dialog").modal('show');
+                }
+            });
+        });
 
     });
 })();

@@ -61,9 +61,9 @@ public class Usuario implements Serializable {
     @Column(name = "foto")
     private String foto;
     @JoinColumn(name = "rol_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Rol rolId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "autorId", fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Rol rol;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "autorId", fetch = FetchType.LAZY)
     private List<Publicacion> publicacionList;
 
     public Usuario() {
@@ -130,12 +130,12 @@ public class Usuario implements Serializable {
         this.foto = foto;
     }
 
-    public Rol getRolId() {
-        return rolId;
+    public Rol getRol() {
+        return rol;
     }
 
-    public void setRolId(Rol rolId) {
-        this.rolId = rolId;
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 
     public List<Publicacion> getPublicacionList() {
