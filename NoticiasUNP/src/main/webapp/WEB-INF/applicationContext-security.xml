@@ -9,8 +9,9 @@
     
     <security:http use-expressions="true">
         <security:intercept-url pattern="/login.html" access="permitAll" />
+        <security:intercept-url pattern="/editor/**" access="hasAnyRole('ADMIN', 'EDITOR')" />
         <security:intercept-url pattern="/**" access="permitAll" />
-        <security:form-login login-page="/login.html" default-target-url="/index.html" />
+        <security:form-login login-page="/index.html" default-target-url="/index.html" />
         <security:logout logout-url="/logout" logout-success-url="/index.html"/> 
     </security:http>
     
