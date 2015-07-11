@@ -22,25 +22,25 @@ import javax.persistence.Table;
  * @author Hugo
  */
 @Entity
-@Table(name = "publicacion_categoria")
-public class PublicacionCategoria implements Serializable {
+@Table(name = "noticia_categoria")
+public class NoticiaCategoria implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "publicacion_id", referencedColumnName = "id")
+    @JoinColumn(name = "noticia_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Publicacion publicacion;
+    private Noticia noticia;
     @JoinColumn(name = "categoria_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Categoria categoria;
 
-    public PublicacionCategoria() {
+    public NoticiaCategoria() {
     }
 
-    public PublicacionCategoria(Integer id) {
+    public NoticiaCategoria(Integer id) {
         this.id = id;
     }
 
@@ -52,12 +52,12 @@ public class PublicacionCategoria implements Serializable {
         this.id = id;
     }
 
-    public Publicacion getPublicacion() {
-        return publicacion;
+    public Noticia getNoticia() {
+        return noticia;
     }
 
-    public void setPublicacion(Publicacion publicacion) {
-        this.publicacion = publicacion;
+    public void setNoticia(Noticia noticia) {
+        this.noticia = noticia;
     }
 
     public Categoria getCategoria() {
@@ -78,10 +78,10 @@ public class PublicacionCategoria implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PublicacionCategoria)) {
+        if (!(object instanceof NoticiaCategoria)) {
             return false;
         }
-        PublicacionCategoria other = (PublicacionCategoria) object;
+        NoticiaCategoria other = (NoticiaCategoria) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -90,7 +90,7 @@ public class PublicacionCategoria implements Serializable {
 
     @Override
     public String toString() {
-        return "com.dev2012.noticiasunp.entity.PublicacionCategoria[ id=" + id + " ]";
+        return "com.dev2012.noticiasunp.entity.NoticiaCategoria[ id=" + id + " ]";
     }
     
 }

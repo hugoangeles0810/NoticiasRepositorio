@@ -7,6 +7,11 @@ and open the template in the editor.
     Created on : 04/07/2015, 12:01:07 PM
     Author     : Hugo
 */
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 70px;
+}
+
 #fecha
 {
 
@@ -17,10 +22,14 @@ and open the template in the editor.
 
 #footer
 {
-    padding-top: 10px;
+    position: absolute;
+    bottom: 0;
     width: 100%;
-    display: block;
+    /* Set the fixed height of the footer here */
+    height: 60px;
     background-color: #d9edf7;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 #header
@@ -50,7 +59,7 @@ and open the template in the editor.
 
 .fixed-bottom
 {
-    position: absolute;
+    position: static;
     bottom: 0px;
 }
 

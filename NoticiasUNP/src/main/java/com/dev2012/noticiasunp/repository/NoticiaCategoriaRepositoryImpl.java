@@ -5,7 +5,7 @@
  */
 package com.dev2012.noticiasunp.repository;
 
-import com.dev2012.noticiasunp.entity.PublicacionCategoria;
+import com.dev2012.noticiasunp.entity.NoticiaCategoria;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * @author Hugo
  */
 @Repository
-public class PublicacionCategoriaRepositoryImpl extends BaseRepositoryImpl<PublicacionCategoria, Integer>
-                implements PublicacionCategoriaRepository{
+public class NoticiaCategoriaRepositoryImpl extends BaseRepositoryImpl<NoticiaCategoria, Integer>
+                implements NoticiaCategoriaRepository{
     
 }

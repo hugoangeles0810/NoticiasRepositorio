@@ -5,12 +5,15 @@
  */
 package com.dev2012.noticiasunp.repository;
 
-import com.dev2012.noticiasunp.entity.Publicacion;
+import com.dev2012.noticiasunp.entity.Noticia;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Hugo
  */
-public interface PublicacionRepository extends BaseRepository<Publicacion, Integer>{
+@Repository
+public class NoticiaRepositoryImpl extends BaseRepositoryImpl<Noticia, Integer>
+                implements NoticiaRepository{
     
 }

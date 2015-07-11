@@ -60,11 +60,11 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 2147483647)
     @Column(name = "foto")
     private String foto;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List<Noticia> noticiaList;
     @JoinColumn(name = "rol_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Rol rol;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "autorId", fetch = FetchType.LAZY)
-    private List<Publicacion> publicacionList;
 
     public Usuario() {
     }
@@ -130,20 +130,20 @@ public class Usuario implements Serializable {
         this.foto = foto;
     }
 
+    public List<Noticia> getNoticiaList() {
+        return noticiaList;
+    }
+
+    public void setNoticiaList(List<Noticia> noticiaList) {
+        this.noticiaList = noticiaList;
+    }
+
     public Rol getRol() {
         return rol;
     }
 
     public void setRol(Rol rol) {
         this.rol = rol;
-    }
-
-    public List<Publicacion> getPublicacionList() {
-        return publicacionList;
-    }
-
-    public void setPublicacionList(List<Publicacion> publicacionList) {
-        this.publicacionList = publicacionList;
     }
 
     @Override

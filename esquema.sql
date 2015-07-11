@@ -26,46 +26,55 @@ CREATE TABLE public.usuario (
 
 ALTER SEQUENCE public.usuario_id_seq OWNED BY public.usuario.id;
 
-CREATE SEQUENCE public.categoria_id_seq;
+CREATE SEQUENCE public.noticia_id_seq;
 
-CREATE TABLE public.categoria (
-                id INTEGER NOT NULL DEFAULT nextval('public.categoria_id_seq'),
-                nombre VARCHAR(60) NOT NULL,
-                CONSTRAINT categoria_primary_key PRIMARY KEY (id)
-);
-
-
-ALTER SEQUENCE public.categoria_id_seq OWNED BY public.categoria.id;
-
-CREATE SEQUENCE public.publicacion_id_seq;
-
-CREATE TABLE public.publicacion (
-                id INTEGER NOT NULL DEFAULT nextval('public.publicacion_id_seq'),
+CREATE TABLE public.noticia (
+                id INTEGER NOT NULL DEFAULT nextval('public.noticia_id_seq'),
                 titulo VARCHAR(60) NOT NULL,
                 contenido VARCHAR NOT NULL,
                 descripcion VARCHAR(100) NOT NULL,
                 fecha_publicacion TIMESTAMP NOT NULL,
                 banner_small VARCHAR NOT NULL,
                 banner_large VARCHAR NOT NULL,
-                categoria_id INTEGER NOT NULL,
-                autor_id INTEGER NOT NULL,
-                CONSTRAINT publicacion_primary_key PRIMARY KEY (id)
+                enlace VARCHAR NOT NULL,
+                usuario_id INTEGER NOT NULL,
+                CONSTRAINT noticia_pk PRIMARY KEY (id)
 );
 
 
-ALTER SEQUENCE public.publicacion_id_seq OWNED BY public.publicacion.id;
+ALTER SEQUENCE public.noticia_id_seq OWNED BY public.noticia.id;
 
-CREATE SEQUENCE public.publicacion_categoria_id_sequence;
+CREATE UNIQUE INDEX noticia__enlace_idx
+ ON public.noticia
+ ( enlace );
 
-CREATE TABLE public.publicacion_categoria (
-                id INTEGER NOT NULL DEFAULT nextval('public.publicacion_categoria_id_sequence'),
-                publicacion_id INTEGER NOT NULL,
-                categoria_id INTEGER NOT NULL,
-                CONSTRAINT publicacion_categoria_primary_key PRIMARY KEY (id)
+CREATE SEQUENCE public.categoria_id_seq;
+
+CREATE TABLE public.categoria (
+                id INTEGER NOT NULL DEFAULT nextval('public.categoria_id_seq'),
+                nombre VARCHAR(60) NOT NULL,
+                enlace VARCHAR NOT NULL,
+                CONSTRAINT categoria_primary_key PRIMARY KEY (id)
 );
 
 
-ALTER SEQUENCE public.publicacion_categoria_id_sequence OWNED BY public.publicacion_categoria.id;
+ALTER SEQUENCE public.categoria_id_seq OWNED BY public.categoria.id;
+
+CREATE UNIQUE INDEX categoria__enlace_idx
+ ON public.categoria
+ ( enlace );
+
+CREATE SEQUENCE public.noticia_categoria_id_seq;
+
+CREATE TABLE public.noticia_categoria (
+                id INTEGER NOT NULL DEFAULT nextval('public.noticia_categoria_id_seq'),
+                categoria_id INTEGER NOT NULL,
+                noticia_id INTEGER NOT NULL,
+                CONSTRAINT noticia_categoria_primary_key PRIMARY KEY (id)
+);
+
+
+ALTER SEQUENCE public.noticia_categoria_id_seq OWNED BY public.noticia_categoria.id;
 
 ALTER TABLE public.usuario ADD CONSTRAINT rol_usuario_fk
 FOREIGN KEY (rol_id)
@@ -74,37 +83,23 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.publicacion ADD CONSTRAINT usuario_publicacion_fk
-FOREIGN KEY (autor_id)
+ALTER TABLE public.noticia ADD CONSTRAINT usuario_noticia_fk
+FOREIGN KEY (usuario_id)
 REFERENCES public.usuario (id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.publicacion ADD CONSTRAINT categoria_publicacion_fk
-FOREIGN KEY (categoria_id)
-REFERENCES public.categoria (id)
+ALTER TABLE public.noticia_categoria ADD CONSTRAINT noticia_publicacion_categoria_fk
+FOREIGN KEY (noticia_id)
+REFERENCES public.noticia (id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.publicacion ADD CONSTRAINT categoria_publicacion_fk1
+ALTER TABLE public.noticia_categoria ADD CONSTRAINT categoria_publicacion_categoria_fk
 FOREIGN KEY (categoria_id)
 REFERENCES public.categoria (id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE public.publicacion_categoria ADD CONSTRAINT categoria_publicacion_categoria_fk
-FOREIGN KEY (categoria_id)
-REFERENCES public.categoria (id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE public.publicacion_categoria ADD CONSTRAINT publicacion_publicacion_categoria_fk
-FOREIGN KEY (publicacion_id)
-REFERENCES public.publicacion (id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;

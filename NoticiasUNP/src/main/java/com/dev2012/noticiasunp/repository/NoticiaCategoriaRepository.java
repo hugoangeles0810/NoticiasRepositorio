@@ -5,12 +5,12 @@
  */
 package com.dev2012.noticiasunp.repository;
 
-import com.dev2012.noticiasunp.entity.PublicacionCategoria;
+import com.dev2012.noticiasunp.entity.NoticiaCategoria;
 
 /**
  *
  * @author Hugo
  */
-public interface PublicacionCategoriaRepository extends BaseRepository<PublicacionCategoria, Integer>{
+public interface NoticiaCategoriaRepository extends BaseRepository<NoticiaCategoria, Integer>{
     
 }

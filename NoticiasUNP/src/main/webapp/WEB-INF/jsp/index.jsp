@@ -8,12 +8,21 @@
 <%@include file="include/header.jsp" %>
 <%@include file="include/nav.jsp" %>
 
+
 <section>
     <div class="container">
-        <br><br><br><br><br><br><br><br>
-        <h1>Solo esta parte cambiaremos</h1>
+        <div class="list-group">
+            <c:forEach var="noticia" items="${noticias}">
+                <a href="#${noticia.id}" class="list-group-item">
+                    <h4 class="list-group-item-heading">${noticia.titulo}</h4>
+                    <img src="${DIR_IMAGE}${noticia.bannerSmall}" /><p class="list-group-item-text">${noticia.descripcion}</p>
+                </a>
+            </c:forEach>
+        </div>
     </div>
-</section>
+</section> 
+
+
 
 <div id="dialog" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">

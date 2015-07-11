@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dev2012.noticiasunp.service;
+package com.dev2012.noticiasunp.repository;
 
-import com.dev2012.noticiasunp.entity.Publicacion;
+import com.dev2012.noticiasunp.entity.Noticia;
 
 /**
  *
  * @author Hugo
  */
-public interface PublicacionService extends BaseService<Publicacion, Integer>{
+public interface NoticiaRepository extends BaseRepository<Noticia, Integer>{
     
 }

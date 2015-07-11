@@ -38,10 +38,13 @@ public class Categoria implements Serializable {
     @Size(min = 1, max = 60)
     @Column(name = "nombre")
     private String nombre;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2147483647)
+    @Column(name = "enlace")
+    private String enlace;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria", fetch = FetchType.LAZY)
-    private List<PublicacionCategoria> publicacionCategoriaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria", fetch = FetchType.LAZY)
-    private List<Publicacion> publicacionList;
+    private List<NoticiaCategoria> noticiaCategoriaList;
 
     public Categoria() {
     }
@@ -50,9 +53,10 @@ public class Categoria implements Serializable {
         this.id = id;
     }
 
-    public Categoria(Integer id, String nombre) {
+    public Categoria(Integer id, String nombre, String enlace) {
         this.id = id;
         this.nombre = nombre;
+        this.enlace = enlace;
     }
 
     public Integer getId() {
@@ -71,20 +75,20 @@ public class Categoria implements Serializable {
         this.nombre = nombre;
     }
 
-    public List<PublicacionCategoria> getPublicacionCategoriaList() {
-        return publicacionCategoriaList;
+    public String getEnlace() {
+        return enlace;
     }
 
-    public void setPublicacionCategoriaList(List<PublicacionCategoria> publicacionCategoriaList) {
-        this.publicacionCategoriaList = publicacionCategoriaList;
+    public void setEnlace(String enlace) {
+        this.enlace = enlace;
     }
 
-    public List<Publicacion> getPublicacionList() {
-        return publicacionList;
+    public List<NoticiaCategoria> getNoticiaCategoriaList() {
+        return noticiaCategoriaList;
     }
 
-    public void setPublicacionList(List<Publicacion> publicacionList) {
-        this.publicacionList = publicacionList;
+    public void setNoticiaCategoriaList(List<NoticiaCategoria> noticiaCategoriaList) {
+        this.noticiaCategoriaList = noticiaCategoriaList;
     }
 
     @Override

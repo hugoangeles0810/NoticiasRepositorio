@@ -5,16 +5,16 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<footer id="footer" class="fixed-bottom">
-            <div class="text-center">
-                <p>Noticias UNP</p>
-                <p>&copy; 2015 Todos los derechos reservados</p>
-            </div>
-        </footer>
+<footer id="footer">
+    <div class="text-center">
+        <p>Noticias UNP</p>
+        <p>&copy; 2015 Todos los derechos reservados</p>
+    </div>
+</footer>
 
-        <script src="resources/libs/js/jquery.min.js"></script>
-        <script src="resources/libs/js/jquery.jsonify.min.js"></script>
-        <script src="resources/libs/js/bootstrap.min.js"></script>
-        <script src="resources/js/main.js"></script>
-    </body>
+<script src="resources/libs/js/jquery.min.js"></script>
+<script src="resources/libs/js/jquery.jsonify.min.js"></script>
+<script src="resources/libs/js/bootstrap.min.js"></script>
+<script src="resources/js/main.js"></script>
+</body>
 </html>

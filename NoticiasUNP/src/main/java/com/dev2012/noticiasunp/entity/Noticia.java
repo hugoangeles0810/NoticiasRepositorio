@@ -30,8 +30,8 @@ import javax.validation.constraints.Size;
  * @author Hugo
  */
 @Entity
-@Table(name = "publicacion")
-public class Publicacion implements Serializable {
+@Table(name = "noticia")
+public class Noticia implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -68,23 +68,25 @@ public class Publicacion implements Serializable {
     @Size(min = 1, max = 2147483647)
     @Column(name = "banner_large")
     private String bannerLarge;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "publicacion", fetch = FetchType.LAZY)
-    private List<PublicacionCategoria> publicacionCategoriaList;
-    @JoinColumn(name = "autor_id", referencedColumnName = "id")
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 2147483647)
+    @Column(name = "enlace")
+    private String enlace;
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Usuario autorId;
-    @JoinColumn(name = "categoria_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Categoria categoria;
+    private Usuario usuario;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "noticia", fetch = FetchType.LAZY)
+    private List<NoticiaCategoria> noticiaCategoriaList;
 
-    public Publicacion() {
+    public Noticia() {
     }
 
-    public Publicacion(Integer id) {
+    public Noticia(Integer id) {
         this.id = id;
     }
 
-    public Publicacion(Integer id, String titulo, String contenido, String descripcion, Date fechaPublicacion, String bannerSmall, String bannerLarge) {
+    public Noticia(Integer id, String titulo, String contenido, String descripcion, Date fechaPublicacion, String bannerSmall, String bannerLarge, String enlace) {
         this.id = id;
         this.titulo = titulo;
         this.contenido = contenido;
@@ -92,6 +94,7 @@ public class Publicacion implements Serializable {
         this.fechaPublicacion = fechaPublicacion;
         this.bannerSmall = bannerSmall;
         this.bannerLarge = bannerLarge;
+        this.enlace = enlace;
     }
 
     public Integer getId() {
@@ -150,28 +153,28 @@ public class Publicacion implements Serializable {
         this.bannerLarge = bannerLarge;
     }
 
-    public List<PublicacionCategoria> getPublicacionCategoriaList() {
-        return publicacionCategoriaList;
+    public String getEnlace() {
+        return enlace;
     }
 
-    public void setPublicacionCategoriaList(List<PublicacionCategoria> publicacionCategoriaList) {
-        this.publicacionCategoriaList = publicacionCategoriaList;
+    public void setEnlace(String enlace) {
+        this.enlace = enlace;
     }
 
-    public Usuario getAutorId() {
-        return autorId;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setAutorId(Usuario autorId) {
-        this.autorId = autorId;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
+    public List<NoticiaCategoria> getNoticiaCategoriaList() {
+        return noticiaCategoriaList;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setNoticiaCategoriaList(List<NoticiaCategoria> noticiaCategoriaList) {
+        this.noticiaCategoriaList = noticiaCategoriaList;
     }
 
     @Override
@@ -184,10 +187,10 @@ public class Publicacion implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Publicacion)) {
+        if (!(object instanceof Noticia)) {
             return false;
         }
-        Publicacion other = (Publicacion) object;
+        Noticia other = (Noticia) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -196,7 +199,7 @@ public class Publicacion implements Serializable {
 
     @Override
     public String toString() {
-        return "com.dev2012.noticiasunp.entity.Publicacion[ id=" + id + " ]";
+        return "com.dev2012.noticiasunp.entity.Noticia[ id=" + id + " ]";
     }
     
 }
