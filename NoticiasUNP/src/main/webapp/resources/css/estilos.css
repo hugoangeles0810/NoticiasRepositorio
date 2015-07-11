@@ -7,9 +7,23 @@ and open the template in the editor.
     Created on : 04/07/2015, 12:01:07 PM
     Author     : Hugo
 */
-body {
+html, body {
   /* Margin bottom by footer height */
-  margin-bottom: 70px;
+  height: 100%;
+}
+
+#wrapper{    
+    min-height: 100%;     
+    height: auto !important;     
+    height: 100%;     
+    margin: 0 auto -80px; /* el magin-bottom es el valor negativo de     
+    //la altura del footer */ 
+} 
+
+#footer, #push { 
+    background:  #d9edf7;
+    height: 80px; /* la altura del push es la misma que la altura     
+    del footer */ 
 }
 
 #fecha
@@ -20,17 +34,6 @@ body {
     left: 35px;
 }
 
-#footer
-{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 60px;
-    background-color: #d9edf7;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
 
 #header
 {

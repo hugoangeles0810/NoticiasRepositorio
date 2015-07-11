@@ -24,27 +24,33 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="contenido" class="col-sm-2 control-label">Contenido</label>
-                <div class="col-sm-4">
-                    <textarea id="contenido" name="contenido" cols="58" rows="10"></textarea>  
-                </div>
-            </div>
-            <div class="form-group">
                 <label for="descripcion" class="col-sm-2 control-label">Descripcion</label>
                 <div class="col-sm-4">
                     <textarea id="descripcion" name="descripcion" cols="58" rows="3"></textarea>
                 </div>
             </div>
             <div class="form-group">
+                <label for="contenido" class="col-sm-2 control-label">Contenido</label>
+                <div class="col-sm-4">
+                    <textarea id="contenido" name="contenido" cols="58" rows="10"></textarea>  
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="categoria" class="col-sm-2 control-label">Categoria</label>
                 <div class="col-sm-4">
-                    <select name="categoria" class="form-control">
+                    <select multiple name="categoria" class="form-control">
                         <c:forEach var="categoria" items="${categorias}">
                             <c:if test="${categoria.id != 7}">
                                 <option value="${categoria.id}">${categoria.nombre}</option>
                             </c:if>
                         </c:forEach>
                     </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="enlace" class="col-sm-2 control-label">Enlace</label>
+                <div class="col-sm-4">
+                    <input id="enlace" type="text" name="enlace" class="form-control"/>
                 </div>
             </div>
             <div class="form-group">

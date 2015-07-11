@@ -6,6 +6,7 @@
 package com.dev2012.noticiasunp.service;
 
 import com.dev2012.noticiasunp.entity.Noticia;
+import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -14,6 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface NoticiaService extends BaseService<Noticia, Integer>{
     
-    public void agregarNoticia(Noticia noticia, MultipartFile bannerSmall, MultipartFile bannerLarge);
+    public void agregarNoticia(Noticia noticia, List<Integer> categoriasIds, MultipartFile bannerSmall, MultipartFile bannerLarge);
     
 }

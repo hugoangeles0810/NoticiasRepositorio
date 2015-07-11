@@ -10,6 +10,7 @@ import com.dev2012.noticiasunp.entity.Noticia;
 import com.dev2012.noticiasunp.service.CategoriaService;
 import com.dev2012.noticiasunp.service.NoticiaService;
 import com.dev2012.noticiasunp.service.UsuarioService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -31,7 +32,7 @@ public class EditorController {
     private CategoriaService categoriaService;
     
     @Autowired
-    private NoticiaService publicacionService;
+    private NoticiaService noticiaService;
     
     @Autowired
     private UsuarioService usuarioService;
@@ -47,7 +48,8 @@ public class EditorController {
     public String guardarNoticia(@RequestParam("titulo") String titulo, 
                                  @RequestParam("contenido") String contenido,
                                  @RequestParam("descripcion") String descripcion,
-                                 @RequestParam("categoria") Integer cateoriaId,
+                                 @RequestParam("enlace") String enlace,
+                                 @RequestParam("categoria") List<Integer> categoriaIds,
                                  @RequestParam("bannerSmall") MultipartFile bannerSmall,
                                  @RequestParam("bannerLarge") MultipartFile bannerLarge){
         
@@ -55,10 +57,11 @@ public class EditorController {
         noticia.setTitulo(titulo);
         noticia.setContenido(contenido);
         noticia.setDescripcion(descripcion);
+        noticia.setEnlace(enlace);
         noticia.setUsuario(usuarioService.buscarUsuarioPorCorreo(
                 SecurityContextHolder.getContext().getAuthentication().getName()
         ));
-        publicacionService.agregarNoticia(noticia, bannerSmall, bannerLarge);
+        noticiaService.agregarNoticia(noticia, categoriaIds, bannerSmall, bannerLarge);
         
         return "redirect:/index.html";
     }

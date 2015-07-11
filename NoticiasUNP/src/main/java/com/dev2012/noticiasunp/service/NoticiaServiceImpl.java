@@ -6,10 +6,14 @@
 package com.dev2012.noticiasunp.service;
 
 import com.dev2012.noticiasunp.config.Constantes;
+import com.dev2012.noticiasunp.entity.Categoria;
 import com.dev2012.noticiasunp.entity.Noticia;
+import com.dev2012.noticiasunp.entity.NoticiaCategoria;
+import com.dev2012.noticiasunp.repository.NoticiaCategoriaRepository;
 import com.dev2012.noticiasunp.repository.NoticiaRepository;
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,16 +30,26 @@ public class NoticiaServiceImpl extends BaseServiceImpl<Noticia, Integer>
     private ImageService imageService;
 
     @Autowired
+    private NoticiaCategoriaRepository noticiaCategoriaRepository;
+    
+    @Autowired
     public NoticiaServiceImpl(NoticiaRepository publicacionRepository) {
         super(publicacionRepository);
     }
 
     @Override
-    public void agregarNoticia(Noticia noticia, MultipartFile bannerSmall, MultipartFile bannerLarge) {
+    public void agregarNoticia(Noticia noticia, List<Integer> categoriasIds, MultipartFile bannerSmall, MultipartFile bannerLarge) {
         noticia.setBannerSmall("default");
         noticia.setBannerLarge("default");
         noticia.setFechaPublicacion(new Date());
         save(noticia);
+        
+        for (Integer id : categoriasIds) {
+            NoticiaCategoria noticiaCategoria = new NoticiaCategoria();
+            noticiaCategoria.setNoticia(noticia);
+            noticiaCategoria.setCategoria(new Categoria(id));
+            noticiaCategoriaRepository.save(noticiaCategoria);
+        }
         
         File fSmall = new File(Constantes.DIR_IMAGES + noticia.getId() + "-small-" + bannerSmall.getOriginalFilename());
         File fLarge = new File(Constantes.DIR_IMAGES + noticia.getId() + "-large-" + bannerLarge.getOriginalFilename());
@@ -47,7 +61,6 @@ public class NoticiaServiceImpl extends BaseServiceImpl<Noticia, Integer>
         noticia.setBannerLarge(fLarge.getName());
         System.out.println(fSmall.getName() + "  -   " + fLarge.getName());
         update(noticia);
-        
     }
     
 }
