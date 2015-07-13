@@ -13,96 +13,18 @@
     <section>
         <br/>
         <div class="container">
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <a href="#"><img src="resources/img/default.svg" alt="242x200" style="height: 300px; width: 100%; display: block;" /></a>
-                    <div class="caption">
-                        <a href="#"><h4>Thumbnail label</h4></a>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p style="text-align: right"><a href="#" class="btn btn-primary" role="button">Ver más</a></p>
+            <c:forEach var="noticia" items="${noticias}">
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <a href="noticias/${noticia.enlace}.html"><img src="${DIR_IMAGE}${noticia.bannerSmall}" alt="242x200" style="height: 300px; width: 100%; display: block;" /></a>
+                        <div class="caption">
+                            <a href="noticias/${noticia.enlace}.html"><h4>${noticia.titulo}</h4></a>
+                            <p>${noticia.descripcion}.</p>
+                            <p style="text-align: right"><a href="noticias/${noticia.enlace}.html" class="btn btn-primary" role="button">Ver más</a></p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <a href="#"><img src="resources/img/default.svg" alt="242x200" style="height: 300px; width: 100%; display: block;" /></a>
-                    <div class="caption">
-                        <a href="#"><h4>Thumbnail label</h4></a>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p style="text-align: right"><a href="#" class="btn btn-primary" role="button">Ver más</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <a href="#"><img src="resources/img/default.svg" alt="242x200" style="height: 300px; width: 100%; display: block;" /></a>
-                    <div class="caption">
-                        <a href="#"><h4>Thumbnail label</h4></a>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p style="text-align: right"><a href="#" class="btn btn-primary" role="button">Ver más</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <a href="#"><img src="resources/img/default.svg" alt="242x200" style="height: 300px; width: 100%; display: block;" /></a>
-                    <div class="caption">
-                        <a href="#"><h4>Thumbnail label</h4></a>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p style="text-align: right"><a href="#" class="btn btn-primary" role="button">Ver más</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <a href="#"><img src="resources/img/default.svg" alt="242x200" style="height: 300px; width: 100%; display: block;" /></a>
-                    <div class="caption">
-                        <a href="#"><h4>Thumbnail label</h4></a>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p style="text-align: right"><a href="#" class="btn btn-primary" role="button">Ver más</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <a href="#"><img src="resources/img/default.svg" alt="242x200" style="height: 300px; width: 100%; display: block;" /></a>
-                    <div class="caption">
-                        <a href="#"><h4>Thumbnail label</h4></a>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p style="text-align: right"><a href="#" class="btn btn-primary" role="button">Ver más</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <a href="#"><img src="resources/img/default.svg" alt="242x200" style="height: 300px; width: 100%; display: block;" /></a>
-                    <div class="caption">
-                        <a href="#"><h4>Thumbnail label</h4></a>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p style="text-align: right"><a href="#" class="btn btn-primary" role="button">Ver más</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <a href="#"><img src="resources/img/default.svg" alt="242x200" style="height: 300px; width: 100%; display: block;" /></a>
-                    <div class="caption">
-                        <a href="#"><h4>Thumbnail label</h4></a>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p style="text-align: right"><a href="#" class="btn btn-primary" role="button">Ver más</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <a href="#"><img src="resources/img/default.svg" alt="242x200" style="height: 300px; width: 100%; display: block;" /></a>
-                    <div class="caption">
-                        <a href="#"><h4>Thumbnail label</h4></a>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                        <p style="text-align: right"><a href="#" class="btn btn-primary" role="button">Ver más</a></p>
-                    </div>
-                </div>
-            </div>
+            </c:forEach>
         </div>
         <div id="push"></div>
     </section> 

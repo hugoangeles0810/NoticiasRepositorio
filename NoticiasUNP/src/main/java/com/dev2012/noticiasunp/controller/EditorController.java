@@ -5,7 +5,6 @@
  */
 package com.dev2012.noticiasunp.controller;
 
-import com.dev2012.noticiasunp.entity.Categoria;
 import com.dev2012.noticiasunp.entity.Noticia;
 import com.dev2012.noticiasunp.service.CategoriaService;
 import com.dev2012.noticiasunp.service.NoticiaService;
@@ -46,8 +45,8 @@ public class EditorController {
     
     @RequestMapping(value = "/guardar-noticia.html", method = RequestMethod.POST)
     public String guardarNoticia(@RequestParam("titulo") String titulo, 
-                                 @RequestParam("contenido") String contenido,
                                  @RequestParam("descripcion") String descripcion,
+                                 @RequestParam("contenido") String contenido,
                                  @RequestParam("enlace") String enlace,
                                  @RequestParam("categoria") List<Integer> categoriaIds,
                                  @RequestParam("bannerSmall") MultipartFile bannerSmall,

@@ -8,22 +8,27 @@ and open the template in the editor.
     Author     : Hugo
 */
 html, body {
-  /* Margin bottom by footer height */
-  height: 100%;
+    /* Margin bottom by footer height */
+    height: 100%;
 }
 
 #wrapper{    
     min-height: 100%;     
     height: auto !important;     
     height: 100%;     
-    margin: 0 auto -80px; /* el magin-bottom es el valor negativo de     
+    margin-bottom: -80px; /* el magin-bottom es el valor negativo de     
     //la altura del footer */ 
 } 
 
+
 #footer, #push { 
-    background:  #d9edf7;
     height: 80px; /* la altura del push es la misma que la altura     
     del footer */ 
+}
+
+#footer
+{
+    background:  #d9edf7;
 }
 
 #fecha

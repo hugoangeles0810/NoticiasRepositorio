@@ -11,9 +11,11 @@ import com.dev2012.noticiasunp.entity.Noticia;
 import com.dev2012.noticiasunp.entity.NoticiaCategoria;
 import com.dev2012.noticiasunp.repository.NoticiaCategoriaRepository;
 import com.dev2012.noticiasunp.repository.NoticiaRepository;
+import com.dev2012.noticiasunp.util.Criterio;
 import java.io.File;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -61,6 +63,20 @@ public class NoticiaServiceImpl extends BaseServiceImpl<Noticia, Integer>
         noticia.setBannerLarge(fLarge.getName());
         System.out.println(fSmall.getName() + "  -   " + fLarge.getName());
         update(noticia);
+    }
+
+    @Override
+    public Noticia buscarNoticiaPorEnlace(String enlace) {
+        Criterio filtro = Criterio.forClass(Noticia.class);
+        filtro.add(Restrictions.eq("enlace", enlace));
+        
+        List<Noticia> list = searchForCriteria(filtro);
+        
+        if (list != null && !list.isEmpty()) {
+            return list.get(0);
+        }
+        
+        return null;
     }
     
 }
