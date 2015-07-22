@@ -46,6 +46,11 @@ public abstract class BaseServiceImpl<Entity extends Serializable, KeyType exten
     public void delete(Entity entity) {
         baseRepository.delete(entity);
     }
+    
+    @Override
+    public void bulkDelete(List<Entity> entities){
+        baseRepository.bulkDelete(entities);
+    }
 
     @Override
     public List<Entity> getAll() {

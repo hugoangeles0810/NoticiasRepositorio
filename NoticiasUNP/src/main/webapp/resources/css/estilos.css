@@ -76,6 +76,11 @@ html, body {
     margin-top: 12px;
 }
 
+.mini-loader
+{
+    margin-bottom: 10px;
+}
+
 .nav-container
 {
     background-color: #337AB7;

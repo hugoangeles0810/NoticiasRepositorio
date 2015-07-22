@@ -11,9 +11,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>.:Noticias UNP:.</title>
-        <link rel="icon" type="image/png" href="resources/img/favicon.png" />
-        <link rel="stylesheet" href="resources/libs/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="resources/css/estilos.css" />
+        <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/img/favicon.png" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/libs/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/estilos.css" />
     </head>
     <body>
 
@@ -21,9 +21,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">
-                        <a href="index.html" class="no-decoration">
+                        <a href="${pageContext.request.contextPath}/index.html" class="no-decoration">
                             <div>
-                                <img id="logo-img" src="resources/img/logounp.jpg" alt="Noticias UNP" />
+                                <img id="logo-img" src="${pageContext.request.contextPath}/resources/img/logounp.jpg" alt="Noticias UNP" />
                                 <h1 id="logo-text">Noticias UNP</h1>
                             </div>
                         </a>
@@ -52,7 +52,7 @@
                         </sec:authorize>
                         <sec:authorize access="isAuthenticated()">
                             <p>Usuario: <sec:authentication property="principal.username" /> </p>
-                            <a href="logout" class="btn btn-danger btn-sm">Salir</a>
+                            <a href="/NoticiasUNP/logout" class="btn btn-danger btn-sm">Salir</a>
                         </sec:authorize>
                     </div>
                 </div>

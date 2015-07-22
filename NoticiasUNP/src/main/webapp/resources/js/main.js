@@ -29,7 +29,7 @@ jQuery.fn.shakeit = function (intShakes, intDistance, intDuration) {
 
         $("#btn-login").click(function () {
             $.ajax({
-                url: 'login.html',
+                url: '/NoticiasUNP/login.html',
                 type: 'GET',
                 dataType: 'html',
                 success: function (data) {
@@ -37,7 +37,7 @@ jQuery.fn.shakeit = function (intShakes, intDistance, intDuration) {
                     $("#login-form").submit(function (e) {
                         e.preventDefault();
                         $.ajax({
-                            url: 'login.json',
+                            url: '/NoticiasUNP/login.json',
                             type: 'POST',
                             dataType: 'json',
                             data: $("#login-form").serialize(),
@@ -61,7 +61,7 @@ jQuery.fn.shakeit = function (intShakes, intDistance, intDuration) {
 
         $("#btn-register").click(function () {
             $.ajax({
-                url: 'register.html',
+                url: '/NoticiasUNP/register.html',
                 type: 'GET',
                 dataType: 'html',
                 success: function (data) {
@@ -69,7 +69,7 @@ jQuery.fn.shakeit = function (intShakes, intDistance, intDuration) {
                     $("#register-form").submit(function (e) {
                         e.preventDefault();
                         $.ajax({
-                            url: 'register.json',
+                            url: '/NoticiasUNP/register.json',
                             type: 'POST',
                             dataType: 'json',
                             data: JSON.stringify($("#register-form").jsonify()),

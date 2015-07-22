@@ -18,4 +18,10 @@ public interface NoticiaService extends BaseService<Noticia, Integer>{
     public void agregarNoticia(Noticia noticia, List<Integer> categoriasIds, MultipartFile bannerSmall, MultipartFile bannerLarge);
     
     public Noticia buscarNoticiaPorEnlace(String enlace);
+    
+    public List<Noticia> buscarNoticiasPorEnlaceCategoria(String enlace);
+    
+    public void borrarNoticiaConCategorias(Integer id);
+    
+    public List<Noticia> buscarNoticiasPorEditor(String emailEditor);
 }

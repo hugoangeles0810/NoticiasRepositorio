@@ -16,7 +16,7 @@
             <c:forEach var="noticia" items="${noticias}">
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
-                        <a href="noticias/${noticia.enlace}.html"><img src="${DIR_IMAGE}${noticia.bannerSmall}" alt="242x200" style="height: 300px; width: 100%; display: block;" /></a>
+                        <a href="${pageContext.request.contextPath}/noticias/${noticia.enlace}.html"><img src="${DIR_IMAGE}${noticia.bannerSmall}" alt="242x200" style="height: 300px; width: 100%; display: block;" /></a>
                         <div class="caption">
                             <a href="noticias/${noticia.enlace}.html"><h4>${noticia.titulo}</h4></a>
                             <p>${noticia.descripcion}.</p>
@@ -42,3 +42,5 @@
     </div>
 </div>
 <%@include file="include/footer.jsp" %>
+</body>
+</html>

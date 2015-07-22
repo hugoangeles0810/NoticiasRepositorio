@@ -1,3 +1,4 @@
+<%@page import="com.dev2012.noticiasunp.entity.Categoria"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 
     Document   : nav
@@ -9,8 +10,9 @@
 <nav class="nav navbar-inverse nav-container">
     <div class="container">
         <ul class="nav navbar-nav navbar-left">
+            <li id="portada"><a href="${pageContext.request.contextPath}/index.html">Portada</a></li>
             <c:forEach var="categoria" items="${categorias}">
-                <li id="inicio"><a href="">${categoria.nombre}</a></li>
+            <li id="${categoria.enlace}"><a href="${pageContext.request.contextPath}/categoria/${categoria.enlace}/">${categoria.nombre}</a></li>
             </c:forEach>
         </ul>
     </div>

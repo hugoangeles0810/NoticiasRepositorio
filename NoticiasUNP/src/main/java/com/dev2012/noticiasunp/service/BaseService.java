@@ -20,6 +20,7 @@ public interface BaseService<Entity, KeyType> {
     public void save(Entity entity);
     public void update(Entity entity);
     public void delete(Entity entity);
+    public void bulkDelete(List<Entity> entity);
     public List<Entity> getAll();
     public List<Entity> searchForCriteria(Criterio criterio);
     public Long countResultForCriteria(Criterio criterio);

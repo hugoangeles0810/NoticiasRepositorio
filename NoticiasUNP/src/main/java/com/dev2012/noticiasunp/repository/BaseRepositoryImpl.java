@@ -58,6 +58,13 @@ public abstract class BaseRepositoryImpl<Entity extends Serializable, KeyType ex
     public void delete(Entity entity) {
         getSession().delete(entity);
     }
+    
+    @Override
+    public void bulkDelete(List<Entity> entities) {
+        for (Entity entity : entities) {
+          getSession().delete(entity);  
+        }
+    }
 
     @Override
     public List<Entity> getAll() {

@@ -9,7 +9,6 @@ import com.dev2012.noticiasunp.config.Constantes;
 import com.dev2012.noticiasunp.entity.Categoria;
 import com.dev2012.noticiasunp.entity.Noticia;
 import com.dev2012.noticiasunp.entity.NoticiaCategoria;
-import com.dev2012.noticiasunp.repository.NoticiaCategoriaRepository;
 import com.dev2012.noticiasunp.repository.NoticiaRepository;
 import com.dev2012.noticiasunp.util.Criterio;
 import java.io.File;
@@ -32,7 +31,7 @@ public class NoticiaServiceImpl extends BaseServiceImpl<Noticia, Integer>
     private ImageService imageService;
 
     @Autowired
-    private NoticiaCategoriaRepository noticiaCategoriaRepository;
+    private NoticiaCategoriaService noticiaCategoriaService;
     
     @Autowired
     public NoticiaServiceImpl(NoticiaRepository publicacionRepository) {
@@ -50,7 +49,7 @@ public class NoticiaServiceImpl extends BaseServiceImpl<Noticia, Integer>
             NoticiaCategoria noticiaCategoria = new NoticiaCategoria();
             noticiaCategoria.setNoticia(noticia);
             noticiaCategoria.setCategoria(new Categoria(id));
-            noticiaCategoriaRepository.save(noticiaCategoria);
+            noticiaCategoriaService.save(noticiaCategoria);
         }
         
         File fSmall = new File(Constantes.DIR_IMAGES + noticia.getId() + "-small-" + bannerSmall.getOriginalFilename());
@@ -77,6 +76,33 @@ public class NoticiaServiceImpl extends BaseServiceImpl<Noticia, Integer>
         }
         
         return null;
+    }
+
+    @Override
+    public List<Noticia> buscarNoticiasPorEnlaceCategoria(String enlace) {
+        Criterio filtro = Criterio.forClass(Noticia.class);
+        filtro
+            .createCriteria("noticiaCategoriaList")
+            .createCriteria("categoria")
+            .add(Restrictions.eq("enlace", enlace));
+        
+        return searchForCriteria(filtro);
+    }
+
+    @Override
+    public void borrarNoticiaConCategorias(Integer id) {
+        Noticia noticia = get(id);
+        List<NoticiaCategoria> categorias = noticiaCategoriaService.getNoticiaCategoriaDeNoticiaId(id);
+        noticiaCategoriaService.bulkDelete(categorias);
+        delete(noticia);
+    }
+
+    @Override
+    public List<Noticia> buscarNoticiasPorEditor(String emailEditor) {
+        Criterio filtro = Criterio.forClass(Noticia.class);
+        filtro.createCriteria("usuario").add(Restrictions.eq("correo", emailEditor));
+        
+        return searchForCriteria(filtro);
     }
     
 }

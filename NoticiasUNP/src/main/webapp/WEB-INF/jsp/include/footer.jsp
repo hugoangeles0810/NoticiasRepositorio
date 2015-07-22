@@ -12,9 +12,12 @@
     </div>
 </footer>
 
-<script src="resources/libs/js/jquery.min.js"></script>
-<script src="resources/libs/js/jquery.jsonify.min.js"></script>
-<script src="resources/libs/js/bootstrap.min.js"></script>
-<script src="resources/js/main.js"></script>
-</body>
-</html>
+<script src="${pageContext.request.contextPath}/resources/libs/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/libs/js/jquery.jsonify.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/libs/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+<script>
+    var enlace = '${enlace_categoria}';
+    $("#" + enlace).addClass('active');
+</script>
+

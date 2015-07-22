@@ -1,79 +1,66 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 
     Document   : index
-    Created on : 10/07/2015, 12:02:41 PM
+    Created on : 21/07/2015, 07:16:22 PM
     Author     : Hugo
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Editor</title>
-        <link rel="icon" type="image/png" href="resources/img/favicon.png" />
-        <link rel="stylesheet" href="../resources/libs/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="../resources/css/estilos.css" />
-    </head>
-    <body>
-        <form action="guardar-noticia.html" method="POST" enctype="multipart/form-data" class="form-horizontal">
-            <div class="form-group">
-                <label for="titulo" class="col-sm-2 control-label">Titulo</label>
-                <div class="col-sm-4">
-                    <input type="text" name="titulo" class="form-control"/>
+<%@include file="../include/header.jsp" %>
+<div id="wrapper">
+    <section>
+        <br/>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-1 col-md-3">
+                    <a id="nueva-noticia" href="javascript:void(0);" class="btn btn-info">Nueva Noticia</a>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="descripcion" class="col-sm-2 control-label">Descripcion</label>
-                <div class="col-sm-4">
-                    <textarea id="descripcion" name="descripcion" cols="58" rows="3"></textarea>
+            <br/>
+            <div class="row">
+                <div class="col-md-offset-1 col-md-9">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr class="success">
+                                <th>Titulo</th>
+                                <th>Descripcion</th>
+                                <th class="text-center">Ver</th>
+                                <th class="text-center">Modificar</th>
+                                <th class="text-center">Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="noticia" items="${noticias}">
+                                <tr id="${noticia.id}">
+                                    <td>${noticia.titulo}</td>
+                                    <td>${noticia.descripcion}</td>
+                                    <td class="text-center"><a href="${pageContext.request.contextPath}/noticias/${noticia.enlace}.html"><span class="glyphicon glyphicon-search"></span></a></td>
+                                    <td class="text-center"><a href="javascript:void(0);" class="update"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                    <td class="text-center"><a href="javascript:void(0);" class="delete"><span class="glyphicon glyphicon-remove"></span></a></td>
+                                </tr>
+                            </c:forEach>               
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="contenido" class="col-sm-2 control-label">Contenido</label>
-                <div class="col-sm-4">
-                    <textarea id="contenido" name="contenido" cols="58" rows="10"></textarea>  
-                </div>
+        </div>
+        <div id="push"></div>
+    </section> 
+</div>
+<div id="dialog" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">&nbsp; Noticia</h4>
             </div>
-            <div class="form-group">
-                <label for="categoria" class="col-sm-2 control-label">Categoria</label>
-                <div class="col-sm-4">
-                    <select multiple name="categoria" class="form-control">
-                        <c:forEach var="categoria" items="${categorias}">
-                            <c:if test="${categoria.id != 7}">
-                                <option value="${categoria.id}">${categoria.nombre}</option>
-                            </c:if>
-                        </c:forEach>
-                    </select>
-                </div>
+            <div id="dialog-content" class="modal-body">
+                adhlfjhasdkjfhlakj
             </div>
-            <div class="form-group">
-                <label for="enlace" class="col-sm-2 control-label">Enlace</label>
-                <div class="col-sm-4">
-                    <input id="enlace" type="text" name="enlace" class="form-control"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="bannerSmall" class="col-sm-2 control-label">Banner small</label>
-                <div class="col-sm-4">
-                    <input id="bannerSmall" type="file" name="bannerSmall" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="bannerLarge" class="col-sm-2 control-label">Banner Larger</label>
-                <div class="col-sm-4">
-                    <input id="bannerLarge" type="file" name="bannerLarge" />
-                </div>
-            </div>
-            <div class="col-sm-offset-3">
-                <br/>
-                <input type="reset" value="Limpiar" class="btn btn-default" />&nbsp;&nbsp;&nbsp;
-                <input type="submit" value="Guardar" class="btn btn-primary" />
-            </div>
-        </form>
-        <script src="../resources/libs/js/jquery.min.js"></script>
-        <script src="../resources/libs/js/jquery.jsonify.min.js"></script>
-        <script src="../resources/libs/js/bootstrap.min.js"></script>
-        <script src="../resources/js/main.js"></script>
-    </body>
+        </div>
+    </div>
+</div>
+<%@include file="../include/footer.jsp" %>
+<script src="${pageContext.request.contextPath}/resources/js/editor.js"></script>
+</body>
 </html>
