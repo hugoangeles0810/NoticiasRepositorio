@@ -9,9 +9,13 @@ import com.dev2012.noticiasunp.entity.Noticia;
 import com.dev2012.noticiasunp.service.CategoriaService;
 import com.dev2012.noticiasunp.service.NoticiaService;
 import com.dev2012.noticiasunp.service.UsuarioService;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -79,12 +83,13 @@ public class EditorController {
             @RequestParam("enlace") String enlace,
             @RequestParam("categoria") List<Integer> categoriaIds,
             @RequestParam("bannerSmall") MultipartFile bannerSmall,
-            @RequestParam("bannerLarge") MultipartFile bannerLarge) {
-
+            @RequestParam("bannerLarge") MultipartFile bannerLarge) 
+                throws UnsupportedEncodingException {
+        
         Noticia noticia = new Noticia();
-        noticia.setTitulo(titulo);
-        noticia.setContenido(contenido);
-        noticia.setDescripcion(descripcion);
+        noticia.setTitulo(new String(titulo.getBytes ("iso-8859-1"), "UTF-8"));
+        noticia.setContenido(new String(contenido.getBytes ("iso-8859-1"), "UTF-8"));
+        noticia.setDescripcion(new String(descripcion.getBytes ("iso-8859-1"), "UTF-8"));
         noticia.setEnlace(enlace);
         noticia.setUsuario(usuarioService.buscarUsuarioPorCorreo(
                 SecurityContextHolder.getContext().getAuthentication().getName()
