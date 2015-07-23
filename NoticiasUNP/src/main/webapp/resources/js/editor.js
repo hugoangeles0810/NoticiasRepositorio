@@ -5,6 +5,10 @@
  */
 (function () {
     'use strict';
+    var enlaceValido = false;
+    var enlaceExp = /[A-Za-z0-9_-]+/;
+    var enlaceUpdated = null;
+    
     $(document).ready(function () {
 
         $(".delete").click(function () {
@@ -16,50 +20,24 @@
                 deleteNoticia(id);
             }
         });
-        
-        $(".update").click(function (){
+
+        $(".update").click(function () {
             var parent = $(this).parent().parent();
             var id = parent[0].id;
             $.ajax({
-                url: '/NoticiasUNP/editor/new/index.html',
-                type: 'GET',
+                url: '/NoticiasUNP/editor/update/index.html',
+                type: 'POST',
                 dataType: 'html',
-                success: function(data){
+                data: {id: id},
+                success: function (data) {
                     $("#dialog-content").html(data);
+                    enlaceUpdated = $("#enlace").val();
+                    $("#enlace").change(validarEnlace);
                 }
             });
             $("#dialog").modal('show');
         });
 
-        var enlaceValido = false;
-        var enlaceExp = /[A-Za-z0-9_-]+/;
-        $("#enlace").change(function (e) {
-            $("#mini-loader").show();
-            if (!$(this).val().match(enlaceExp)) {
-                showAlert("El campo Enlace solo debe tener caractéres alfanumericos");
-                $(this).focus();
-                $("#mini-loader").hide();
-                enlaceValido = false;
-                return;
-            }
-
-            $.ajax({
-                url: "/NoticiasUNP/editor/consulta-enlace.json",
-                type: 'POST',
-                dataType: 'json',
-                data: $("#enlace").serialize(),
-                success: function (data) {
-                    $("#mini-loader").hide();
-                    if (data.valido) {
-                        enlaceValido = true;
-                        $("#alert-error").hide();
-                    } else {
-                        enlaceValido = false;
-                        showAlert("El campo Enlace ya esta registrado");
-                    }
-                }
-            });
-        });
 
         $("#form-noticia").submit(function (e) {
             if (!enlaceValido) {
@@ -68,19 +46,56 @@
                 return;
             }
         });
-        
-        $("#nueva-noticia").click(function(e){
+
+        $("#nueva-noticia").click(function (e) {
+            validateEnlace = true;
             $.ajax({
                 url: '/NoticiasUNP/editor/new/index.html',
-                type: 'GET',
+                type: 'POST',
                 dataType: 'html',
-                success: function(data){
+                success: function (data) {
                     $("#dialog-content").html(data);
+                    $("#enlace").change(validarEnlace);
                 }
             });
             $("#dialog").modal('show');
         });
     });
+
+    function validarEnlace() {
+        
+        if (enlaceUpdated === $("#enlace").val()){
+            enlaceValido = true;
+            $("#alert-error").hide();
+            return;
+        } 
+        
+        $("#mini-loader").show();
+        if (!$(this).val().match(enlaceExp)) {
+            showAlert("El campo Enlace solo debe tener caractéres alfanumericos");
+            $(this).focus();
+            $("#mini-loader").hide();
+            enlaceValido = false;
+            return;
+        }
+
+        $.ajax({
+            url: "/NoticiasUNP/editor/consulta-enlace.json",
+            type: 'POST',
+            dataType: 'json',
+            data: $("#enlace").serialize(),
+            success: function (data) {
+                $("#mini-loader").hide();
+                if (data.valido) {
+                    enlaceValido = true;
+                    $("#alert-error").hide();
+                } else {
+                    enlaceValido = false;
+                    showAlert("El campo Enlace ya esta registrado");
+                }
+            }
+        });
+    }
 
     function showAlert(msg) {
         $("#error-msg").html(msg);

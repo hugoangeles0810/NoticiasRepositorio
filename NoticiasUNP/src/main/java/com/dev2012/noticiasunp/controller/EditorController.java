@@ -7,6 +7,7 @@ package com.dev2012.noticiasunp.controller;
 
 import com.dev2012.noticiasunp.entity.Noticia;
 import com.dev2012.noticiasunp.service.CategoriaService;
+import com.dev2012.noticiasunp.service.NoticiaCategoriaService;
 import com.dev2012.noticiasunp.service.NoticiaService;
 import com.dev2012.noticiasunp.service.UsuarioService;
 import java.io.UnsupportedEncodingException;
@@ -41,20 +42,32 @@ public class EditorController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private NoticiaCategoriaService noticiaCategoriaService;
+
     @RequestMapping(value = "/index.html", method = RequestMethod.GET)
     public ModelAndView index() {
         ModelAndView mv = new ModelAndView("/editor/index");
         mv.addObject("categorias", categoriaService.getAll());
-        mv.addObject("noticias", 
+        mv.addObject("noticias",
                 noticiaService.buscarNoticiasPorEditor(
                         SecurityContextHolder.getContext().getAuthentication().getName()));
         return mv;
     }
 
-    @RequestMapping(value = "/new/index.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/new/index.html", method = RequestMethod.POST)
     public ModelAndView form() {
         ModelAndView mv = new ModelAndView("/editor/form");
         mv.addObject("categorias", categoriaService.getAll());
+        return mv;
+    }
+
+    @RequestMapping(value = "/update/index.html", method = RequestMethod.POST)
+    public ModelAndView formUpdate(@RequestParam("id") Integer id) {
+        ModelAndView mv = new ModelAndView("/editor/form");
+        mv.addObject("noticia", noticiaService.get(id));
+        mv.addObject("categorias", categoriaService.getAll());
+        mv.addObject("misCategorias", noticiaCategoriaService.getNoticiaCategoriaDeNoticiaId(id));
         return mv;
     }
 
@@ -74,24 +87,30 @@ public class EditorController {
     }
 
     @RequestMapping(value = "/guardar-noticia.html", method = RequestMethod.POST)
-    public String guardarNoticia(@RequestParam("titulo") String titulo,
+    public String guardarNoticia(@RequestParam("id") Integer id,
+            @RequestParam("titulo") String titulo,
             @RequestParam("descripcion") String descripcion,
             @RequestParam("contenido") String contenido,
             @RequestParam("enlace") String enlace,
             @RequestParam("categoria") List<Integer> categoriaIds,
             @RequestParam("bannerSmall") MultipartFile bannerSmall,
-            @RequestParam("bannerLarge") MultipartFile bannerLarge) 
-                throws UnsupportedEncodingException {
-        
+            @RequestParam("bannerLarge") MultipartFile bannerLarge)
+            throws UnsupportedEncodingException {
         Noticia noticia = new Noticia();
-        noticia.setTitulo(new String(titulo.getBytes ("iso-8859-1"), "UTF-8"));
-        noticia.setContenido(new String(contenido.getBytes ("iso-8859-1"), "UTF-8"));
-        noticia.setDescripcion(new String(descripcion.getBytes ("iso-8859-1"), "UTF-8"));
+        noticia.setTitulo(new String(titulo.getBytes("iso-8859-1"), "UTF-8"));
+        noticia.setContenido(new String(contenido.getBytes("iso-8859-1"), "UTF-8"));
+        noticia.setDescripcion(new String(descripcion.getBytes("iso-8859-1"), "UTF-8"));
         noticia.setEnlace(enlace);
-        noticia.setUsuario(usuarioService.buscarUsuarioPorCorreo(
-                SecurityContextHolder.getContext().getAuthentication().getName()
-        ));
-        noticiaService.agregarNoticia(noticia, categoriaIds, bannerSmall, bannerLarge);
+
+        if (id == null) {
+            noticia.setUsuario(usuarioService.buscarUsuarioPorCorreo(
+                    SecurityContextHolder.getContext().getAuthentication().getName()
+            ));
+            noticiaService.agregarNoticia(noticia, categoriaIds, bannerSmall, bannerLarge);
+        } else {
+            noticia.setId(id);
+            noticiaService.actualizarNoticia(noticia, categoriaIds, bannerSmall, bannerLarge);
+        }
 
         return "redirect:/index.html";
     }

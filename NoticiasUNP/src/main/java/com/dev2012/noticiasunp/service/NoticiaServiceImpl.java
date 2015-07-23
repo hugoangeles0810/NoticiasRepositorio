@@ -112,5 +112,38 @@ public class NoticiaServiceImpl extends BaseServiceImpl<Noticia, Integer>
         
         return searchForCriteria(filtro);
     }
+
+    @Override
+    public void actualizarNoticia(Noticia noticia, List<Integer> categoriasIds, MultipartFile bannerSmall, MultipartFile bannerLarge) {
+        Noticia noticeUpdate = get(noticia.getId());
+        noticeUpdate.setTitulo(noticia.getTitulo());
+        noticeUpdate.setDescripcion(noticia.getDescripcion());
+        noticeUpdate.setContenido(noticia.getContenido());
+        noticeUpdate.setEnlace(noticia.getEnlace());
+        
+        List<NoticiaCategoria> categorias = noticiaCategoriaService.getNoticiaCategoriaDeNoticiaId(noticeUpdate.getId());
+        noticiaCategoriaService.bulkDelete(categorias);
+        
+        for (Integer id : categoriasIds) {
+            NoticiaCategoria noticiaCategoria = new NoticiaCategoria();
+            noticiaCategoria.setNoticia(noticeUpdate);
+            noticiaCategoria.setCategoria(new Categoria(id));
+            noticiaCategoriaService.save(noticiaCategoria);
+        }
+        
+        if (bannerSmall.getSize() > 0) {
+            File fSmall = new File(Constantes.DIR_IMAGES + noticeUpdate.getId() + "-small-" + bannerSmall.getOriginalFilename());
+            imageService.saveImage(bannerSmall, fSmall);
+            noticeUpdate.setBannerSmall(fSmall.getName());
+        }
+        
+        if (bannerLarge.getSize() > 0) {
+            File fLarge = new File(Constantes.DIR_IMAGES + noticeUpdate.getId() + "-large-" + bannerLarge.getOriginalFilename());
+            imageService.saveImage(bannerLarge, fLarge);
+            noticeUpdate.setBannerSmall(fLarge.getName());
+        }
+        
+        update(noticeUpdate);
+    }
     
 }

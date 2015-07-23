@@ -34,7 +34,7 @@ public class NoticiaCategoria implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Noticia noticia;
     @JoinColumn(name = "categoria_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Categoria categoria;
 
     public NoticiaCategoria() {

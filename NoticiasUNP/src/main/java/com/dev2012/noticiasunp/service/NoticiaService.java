@@ -17,6 +17,8 @@ public interface NoticiaService extends BaseService<Noticia, Integer>{
     
     public void agregarNoticia(Noticia noticia, List<Integer> categoriasIds, MultipartFile bannerSmall, MultipartFile bannerLarge);
     
+    public void actualizarNoticia(Noticia noticia, List<Integer> categoriasIds, MultipartFile bannerSmall, MultipartFile bannerLarge);
+    
     public Noticia buscarNoticiaPorEnlace(String enlace);
     
     public List<Noticia> buscarNoticiasPorEnlaceCategoria(String enlace);

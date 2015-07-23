@@ -55,7 +55,6 @@
                 <h4 class="modal-title" id="exampleModalLabel">&nbsp; Noticia</h4>
             </div>
             <div id="dialog-content" class="modal-body">
-                adhlfjhasdkjfhlakj
             </div>
         </div>
     </div>
