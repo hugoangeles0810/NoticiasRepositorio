@@ -48,7 +48,6 @@
         });
 
         $("#nueva-noticia").click(function (e) {
-            validateEnlace = true;
             $.ajax({
                 url: '/NoticiasUNP/editor/new/index.html',
                 type: 'POST',
