@@ -4,6 +4,7 @@
     Author     : Hugo
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="include/header.jsp" %>
 <%@include file="include/nav.jsp" %>
@@ -19,6 +20,7 @@
                         <a href="${pageContext.request.contextPath}/noticias/${noticia.enlace}.html"><img src="${DIR_IMAGE}${noticia.bannerSmall}" alt="242x200" style="height: 300px; width: 100%; display: block;" /></a>
                         <div class="caption">
                             <a href="noticias/${noticia.enlace}.html"><h4>${noticia.titulo}</h4></a>
+                            <p><fmt:formatDate type="both" pattern="dd MMMM 'de' yyyy, HH:mm" value="${noticia.fechaPublicacion}"/></p>
                             <p>${noticia.descripcion}.</p>
                             <p style="text-align: right"><a href="noticias/${noticia.enlace}.html" class="btn btn-primary" role="button">Ver más</a></p>
                         </div>
