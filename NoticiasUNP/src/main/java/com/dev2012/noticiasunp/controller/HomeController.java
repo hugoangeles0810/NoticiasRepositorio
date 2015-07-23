@@ -34,7 +34,7 @@ public class HomeController {
     public ModelAndView home(){
         ModelAndView mv = new ModelAndView("index");
         mv.addObject("categorias", categoriaService.getAll());
-        mv.addObject("noticias", noticiaService.getAll());
+        mv.addObject("noticias", noticiaService.obtenerNoticiasEnOrdenDeCreacion());
         mv.addObject("DIR_IMAGE", Constantes.URL_DIR_IMAGES);
         mv.addObject("enlace_categoria", "portada");
         return mv;

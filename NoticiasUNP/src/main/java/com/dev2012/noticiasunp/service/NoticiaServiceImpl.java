@@ -14,6 +14,7 @@ import com.dev2012.noticiasunp.util.Criterio;
 import java.io.File;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,7 +61,6 @@ public class NoticiaServiceImpl extends BaseServiceImpl<Noticia, Integer>
         
         noticia.setBannerSmall(fSmall.getName());
         noticia.setBannerLarge(fLarge.getName());
-        System.out.println(fSmall.getName() + "  -   " + fLarge.getName());
         update(noticia);
     }
 
@@ -85,7 +85,7 @@ public class NoticiaServiceImpl extends BaseServiceImpl<Noticia, Integer>
             .createCriteria("noticiaCategoriaList")
             .createCriteria("categoria")
             .add(Restrictions.eq("enlace", enlace));
-        
+        filtro.addOrder(Order.desc("fechaPublicacion"));
         return searchForCriteria(filtro);
     }
 
@@ -101,6 +101,14 @@ public class NoticiaServiceImpl extends BaseServiceImpl<Noticia, Integer>
     public List<Noticia> buscarNoticiasPorEditor(String emailEditor) {
         Criterio filtro = Criterio.forClass(Noticia.class);
         filtro.createCriteria("usuario").add(Restrictions.eq("correo", emailEditor));
+        
+        return searchForCriteria(filtro);
+    }
+
+    @Override
+    public List<Noticia> obtenerNoticiasEnOrdenDeCreacion() {
+        Criterio filtro = Criterio.forClass(Noticia.class);
+        filtro.addOrder(Order.desc("fechaPublicacion"));
         
         return searchForCriteria(filtro);
     }

@@ -24,4 +24,6 @@ public interface NoticiaService extends BaseService<Noticia, Integer>{
     public void borrarNoticiaConCategorias(Integer id);
     
     public List<Noticia> buscarNoticiasPorEditor(String emailEditor);
+    
+    public List<Noticia> obtenerNoticiasEnOrdenDeCreacion();
 }
