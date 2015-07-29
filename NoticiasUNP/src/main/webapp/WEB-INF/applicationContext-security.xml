@@ -13,13 +13,64 @@
         <security:intercept-url pattern="/**" access="permitAll" />
         <security:form-login login-page="/index.html" default-target-url="/index.html" />
         <security:logout logout-url="/logout" logout-success-url="/index.html"/> 
+        
+        <!-- Adds social authentication filter to the Spring Security filter chain. -->
+        <security:custom-filter ref="socialAuthenticationFilter" before="PRE_AUTH_FILTER" />
     </security:http>
+    
     
     <security:authentication-manager alias="authenticationManager">
         <security:authentication-provider user-service-ref="userServiceJDBC">
             <security:password-encoder hash="sha" />
         </security:authentication-provider>
+        
+         <security:authentication-provider ref="socialAuthenticationProvider"/>
     </security:authentication-manager>
+    
+    <!--
+        Configures the social authentication filter which integrates Spring Social
+        with Spring Security.
+    -->
+    <bean id="socialAuthenticationFilter" class="org.springframework.social.security.SocialAuthenticationFilter">
+        <constructor-arg index="0" ref="authenticationManager"/>
+        <constructor-arg index="1" ref="userIdSource"/>
+        <constructor-arg index="2" ref="usersConnectionRepository"/>
+        <constructor-arg index="3" ref="connectionFactoryLocator"/>
+
+        <!-- Sets the url of the registration form. -->
+        <property name="signupUrl" value="/index.html"/>
+        
+        <property name="postLoginUrl" value="/" />
+    </bean>
+    
+    <!--
+        Configures the social authentication provider which processes authentication requests
+        made by using supported social authentication services (FB, Twitter and so on).
+    -->
+    <bean id="socialAuthenticationProvider" class="org.springframework.social.security.SocialAuthenticationProvider">
+        <constructor-arg index="0" ref="usersConnectionRepository"/>
+        <constructor-arg index="1" ref="socialUserDetailsService"/>
+    </bean>
+    
+    <!--
+        This bean is used to load the user specific data when social sign in
+        is used.
+    -->
+    <bean id="socialUserDetailsService" class="com.dev2012.noticiasunp.service.SimpleSocialUserDetailsService">
+    </bean>
+    
+    <!--
+        This bean determines the account ID of the user. The example application
+        uses the username as the account ID.
+    -->
+    <bean id="userIdSource" class="org.springframework.social.security.AuthenticationNameUserIdSource"/>
+    
+    <!--
+        This bean encrypts the authorization details of the connection. In
+        our example, the authorization details are stored as plain text.
+        DO NOT USE THIS IN PRODUCTION.
+    -->
+    <bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors" factory-method="noOpText" />
     
     <bean id="userServiceJDBC" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
         <property name="dataSource" ref="dataSource" />

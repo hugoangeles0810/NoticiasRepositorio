@@ -8,9 +8,14 @@ package com.dev2012.noticiasunp.service;
 import com.dev2012.noticiasunp.entity.Usuario;
 import com.dev2012.noticiasunp.repository.UsuarioRepository;
 import com.dev2012.noticiasunp.util.Criterio;
+import com.dev2012.noticiasunp.util.Role;
+import com.dev2012.noticiasunp.util.SocialMediaService;
+import com.dev2012.noticiasunp.util.UsuarioSocial;
 import java.util.List;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -43,5 +48,27 @@ public class UsuarioServiceImpl extends BaseServiceImpl<Usuario, Integer>
         
         return null;
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Usuario usuario = buscarUsuarioPorCorreo(username);
+        
+        if (usuario == null) {
+            throw new UsernameNotFoundException("No user found with username: " + username);
+        }
+        
+        UsuarioSocial principal = UsuarioSocial.getBuilder()
+                .firstName(usuario.getNombre())
+                .lastName(usuario.getApellidos())
+                .password(usuario.getClave())
+                .role(Role.ROLE_USER)
+                .socialSignInProvider(SocialMediaService.FACEBOOK)
+                .username(usuario.getCorreo())
+                .build();
+        
+        return principal;
+    }
+    
+    
     
 }
