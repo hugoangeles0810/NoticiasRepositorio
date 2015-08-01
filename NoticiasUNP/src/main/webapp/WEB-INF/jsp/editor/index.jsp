@@ -7,6 +7,12 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
+<style>
+    #wrapper
+    {
+        background: white;
+    }
+</style>
 <div id="wrapper">
     <section>
         <br/>

@@ -11,28 +11,18 @@
 
 
 <div id="wrapper">
-    <div id="particles-js"></div>
-    <section>
-        <br/>
-        <div class="container">
-            <c:forEach var="noticia" items="${noticias}">
-                <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail marconoticia">
-                        <a href="${pageContext.request.contextPath}/noticias/${noticia.enlace}.html"><img src="${DIR_IMAGE}${noticia.bannerSmall}" alt="242x200" style="height: 300px; width: 100%; display: block;" /></a>
-                        <div class="caption">
-                            <div class="tit-not">
-                                <a href="noticias/${noticia.enlace}.html"><h4>${noticia.titulo}</h4></a>
-                            </div>
-                            <p><fmt:formatDate type="both" pattern="dd MMMM 'de' yyyy, HH:mm" value="${noticia.fechaPublicacion}"/></p>
-                            <p>${noticia.descripcion}.</p>
-                            <p style="text-align: right"><a href="noticias/${noticia.enlace}.html" class="btn btn-danger" role="button">Ver más</a></p>
-                        </div>
-                    </div>
-                </div>
-            </c:forEach>
-        </div>
-        <div id="push"></div>
+    <br />
+    <div class="container">
+        <section id="pinBoot">
+        <c:forEach var="noticia" items="${noticias}">
+            <article class="white-panel"><a href="${pageContext.request.contextPath}/noticias/${noticia.enlace}.html"><img src="${DIR_IMAGE}${noticia.bannerSmall}" alt="" class="white-img"></a>
+                <h4><a href="${pageContext.request.contextPath}/noticias/${noticia.enlace}.html">${noticia.titulo}</a></h4>
+                <p><fmt:formatDate type="both" pattern="dd MMMM 'de' yyyy, HH:mm" value="${noticia.fechaPublicacion}"/></p>
+                <p>${noticia.descripcion}</p>
+            </article>
+        </c:forEach>
     </section> 
+    </div>
 </div>
 <div id="dialog" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -47,7 +37,5 @@
     </div>
 </div>
 <%@include file="include/footer.jsp" %>
-<script src="${pageContext.request.contextPath}/resources/js/particles.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/particulas.js"></script>
 </body>
 </html>

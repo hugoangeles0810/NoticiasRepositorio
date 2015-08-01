@@ -40,7 +40,7 @@ public class Noticia implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 60)
+    @Size(min = 1, max = 250)
     @Column(name = "titulo")
     private String titulo;
     @Basic(optional = false)
@@ -50,7 +50,7 @@ public class Noticia implements Serializable {
     private String contenido;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 250)
     @Column(name = "descripcion")
     private String descripcion;
     @Basic(optional = false)

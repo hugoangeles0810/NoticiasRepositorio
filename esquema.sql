@@ -48,9 +48,9 @@ CREATE SEQUENCE public.noticia_id_seq;
 
 CREATE TABLE public.noticia (
                 id INTEGER NOT NULL DEFAULT nextval('public.noticia_id_seq'),
-                titulo VARCHAR(60) NOT NULL,
+                titulo VARCHAR(250) NOT NULL,
                 contenido VARCHAR NOT NULL,
-                descripcion VARCHAR(100) NOT NULL,
+                descripcion VARCHAR NOT NULL,
                 enlace VARCHAR NOT NULL,
                 fecha_publicacion TIMESTAMP NOT NULL,
                 banner_small VARCHAR NOT NULL,
