@@ -109,7 +109,7 @@ stylize any heading tags withing white-panel below
     color: #A92733;
 }
 .white-panel:hover {
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 5px 5px 20px 5px rgba(181, 255, 255, 1);
     margin-top: -5px;
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
