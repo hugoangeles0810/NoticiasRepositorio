@@ -10,5 +10,6 @@ package com.dev2012.noticiasunp.util;
  * @author Hugo
  */
 public enum SocialMediaService {
-    FACEBOOK
+    FACEBOOK,
+    NONE
 }

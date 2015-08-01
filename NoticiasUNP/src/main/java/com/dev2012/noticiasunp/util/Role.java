@@ -10,5 +10,7 @@ package com.dev2012.noticiasunp.util;
  * @author Hugo
  */
 public enum Role {
-    ROLE_USER
+    EDITOR,
+    ADMIN,
+    USER
 }

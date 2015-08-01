@@ -6,8 +6,6 @@
 package com.dev2012.noticiasunp.service;
 
 import com.dev2012.noticiasunp.entity.Usuario;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
  *
@@ -17,6 +15,6 @@ public interface UsuarioService extends BaseService<Usuario, Integer>{
     
     public Usuario buscarUsuarioPorCorreo(String correo);
     
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+    public Usuario buscarPorProviderYuserId(String providerId, String providerUserId);
     
 }

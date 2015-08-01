@@ -1,4 +1,20 @@
 
+CREATE TABLE public.UserConnection (
+                providerId VARCHAR(255) NOT NULL,
+                userId VARCHAR(255) NOT NULL,
+                providerUserId VARCHAR(255) NOT NULL,
+                rank INTEGER NOT NULL,
+                profileUrl VARCHAR,
+                displayName VARCHAR(255),
+                accessToken VARCHAR(255) NOT NULL,
+                secret VARCHAR(255),
+                refreshToken VARCHAR(255) NOT NULL,
+                expireTime BIGINT,
+                imageUrl VARCHAR,
+                CONSTRAINT userconnection_pk PRIMARY KEY (providerId, userId, providerUserId)
+);
+
+
 CREATE SEQUENCE public.rol_id_seq;
 
 CREATE TABLE public.rol (
@@ -17,8 +33,10 @@ CREATE TABLE public.usuario (
                 nombre VARCHAR(50) NOT NULL,
                 correo VARCHAR(100) NOT NULL,
                 apellidos VARCHAR(100) NOT NULL,
-                clave VARCHAR NOT NULL,
-                foto VARCHAR NOT NULL,
+                clave VARCHAR,
+                foto VARCHAR,
+                providerId VARCHAR(255),
+                providerUserId VARCHAR(255),
                 rol_id INTEGER NOT NULL,
                 CONSTRAINT usuario_primary_key PRIMARY KEY (id)
 );
@@ -33,20 +51,16 @@ CREATE TABLE public.noticia (
                 titulo VARCHAR(60) NOT NULL,
                 contenido VARCHAR NOT NULL,
                 descripcion VARCHAR(100) NOT NULL,
+                enlace VARCHAR NOT NULL,
                 fecha_publicacion TIMESTAMP NOT NULL,
                 banner_small VARCHAR NOT NULL,
                 banner_large VARCHAR NOT NULL,
-                enlace VARCHAR NOT NULL,
                 usuario_id INTEGER NOT NULL,
                 CONSTRAINT noticia_pk PRIMARY KEY (id)
 );
 
 
 ALTER SEQUENCE public.noticia_id_seq OWNED BY public.noticia.id;
-
-CREATE UNIQUE INDEX noticia__enlace_idx
- ON public.noticia
- ( enlace );
 
 CREATE SEQUENCE public.categoria_id_seq;
 
@@ -60,21 +74,17 @@ CREATE TABLE public.categoria (
 
 ALTER SEQUENCE public.categoria_id_seq OWNED BY public.categoria.id;
 
-CREATE UNIQUE INDEX categoria__enlace_idx
- ON public.categoria
- ( enlace );
-
-CREATE SEQUENCE public.noticia_categoria_id_seq;
+CREATE SEQUENCE public.noticia_categoria_id_seq_1;
 
 CREATE TABLE public.noticia_categoria (
-                id INTEGER NOT NULL DEFAULT nextval('public.noticia_categoria_id_seq'),
-                categoria_id INTEGER NOT NULL,
+                id INTEGER NOT NULL DEFAULT nextval('public.noticia_categoria_id_seq_1'),
                 noticia_id INTEGER NOT NULL,
-                CONSTRAINT noticia_categoria_primary_key PRIMARY KEY (id)
+                categoria_id INTEGER NOT NULL,
+                CONSTRAINT publicacion_categoria_primary_key PRIMARY KEY (id)
 );
 
 
-ALTER SEQUENCE public.noticia_categoria_id_seq OWNED BY public.noticia_categoria.id;
+ALTER SEQUENCE public.noticia_categoria_id_seq_1 OWNED BY public.noticia_categoria.id;
 
 ALTER TABLE public.usuario ADD CONSTRAINT rol_usuario_fk
 FOREIGN KEY (rol_id)
@@ -90,14 +100,14 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.noticia_categoria ADD CONSTRAINT noticia_publicacion_categoria_fk
+ALTER TABLE public.noticia_categoria ADD CONSTRAINT noticia_noticia_categoria_fk
 FOREIGN KEY (noticia_id)
 REFERENCES public.noticia (id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE public.noticia_categoria ADD CONSTRAINT categoria_publicacion_categoria_fk
+ALTER TABLE public.noticia_categoria ADD CONSTRAINT categoria_noticia_categoria_fk
 FOREIGN KEY (categoria_id)
 REFERENCES public.categoria (id)
 ON DELETE NO ACTION

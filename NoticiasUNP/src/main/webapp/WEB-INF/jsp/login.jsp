@@ -22,5 +22,16 @@
             <input id="password" type="password" name="j_password" class="form-control" required /><br>
         </div> 
     </div>
-    <input type="submit" value="Entrar" class="col-sm-offset-5 btn btn-primary" />
+
+    <div>
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-8">
+                <input type="submit" value="Entrar" class="btn btn-block btn-primary" />
+                <a class="btn btn-block btn-social btn-facebook" href="${pageContext.request.contextPath}/auth/facebook?scope=email">
+                    <i class="fa fa-facebook"></i>Entra con Facebook
+                </a>
+            </div>
+        </div>
+    </div>
 </form>
+

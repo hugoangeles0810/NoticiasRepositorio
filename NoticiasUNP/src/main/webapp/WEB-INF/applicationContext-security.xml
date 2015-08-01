@@ -20,10 +20,14 @@
     
     
     <security:authentication-manager alias="authenticationManager">
+        <!--
         <security:authentication-provider user-service-ref="userServiceJDBC">
             <security:password-encoder hash="sha" />
         </security:authentication-provider>
-        
+        -->
+        <security:authentication-provider user-service-ref="userDetailsService">
+            <security:password-encoder hash="sha" />
+        </security:authentication-provider>
          <security:authentication-provider ref="socialAuthenticationProvider"/>
     </security:authentication-manager>
     
@@ -38,9 +42,8 @@
         <constructor-arg index="3" ref="connectionFactoryLocator"/>
 
         <!-- Sets the url of the registration form. -->
-        <property name="signupUrl" value="/index.html"/>
+        <property name="signupUrl" value="/user/register.html"/>
         
-        <property name="postLoginUrl" value="/" />
     </bean>
     
     <!--
@@ -59,6 +62,8 @@
     <bean id="socialUserDetailsService" class="com.dev2012.noticiasunp.service.SimpleSocialUserDetailsService">
     </bean>
     
+    <!-- This bean is load the user specific data when form login is used. -->
+    <bean id="userDetailsService" class="com.dev2012.noticiasunp.service.RepositoryUserDetailService"/>
     <!--
         This bean determines the account ID of the user. The example application
         uses the username as the account ID.
@@ -72,6 +77,7 @@
     -->
     <bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors" factory-method="noOpText" />
     
+    <!--
     <bean id="userServiceJDBC" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
         <property name="dataSource" ref="dataSource" />
         <property name="usersByUsernameQuery"
@@ -83,5 +89,5 @@
                         INNER JOIN rol on usuario.rol_id = rol.id 
                         WHERE usuario.correo = ?"/> 
     </bean>
-    
+    -->
 </beans>

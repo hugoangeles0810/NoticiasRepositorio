@@ -16,7 +16,7 @@ import org.springframework.social.security.SocialUser;
  *
  * @author Hugo
  */
-public class UsuarioSocial extends SocialUser {
+public class UsuarioSession extends SocialUser {
  
     private Long id;
  
@@ -27,8 +27,10 @@ public class UsuarioSocial extends SocialUser {
     private Role role;
  
     private SocialMediaService socialSignInProvider;
+    
+    private String imageUrl;
  
-    public UsuarioSocial(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UsuarioSession(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
     }
 
@@ -71,6 +73,14 @@ public class UsuarioSocial extends SocialUser {
     public void setSocialSignInProvider(SocialMediaService socialSignInProvider) {
         this.socialSignInProvider = socialSignInProvider;
     }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
     
     public static Builder getBuilder(){
         return new Builder();
@@ -93,6 +103,8 @@ public class UsuarioSocial extends SocialUser {
         private SocialMediaService socialSignInProvider;
  
         private Set<GrantedAuthority> authorities;
+        
+        private String imageurl;
  
         public Builder() {
             this.authorities = new HashSet<>();
@@ -145,16 +157,21 @@ public class UsuarioSocial extends SocialUser {
             this.username = username;
             return this;
         }
+        
+        public Builder imageurl(String imageurl) {
+            this.imageurl = imageurl;
+            return this;
+        }
  
-        public UsuarioSocial build() {
-            UsuarioSocial user = new UsuarioSocial(username, password, authorities);
+        public UsuarioSession build() {
+            UsuarioSession user = new UsuarioSession(username, password, authorities);
  
             user.id = id;
             user.firstName = firstName;
             user.lastName = lastName;
             user.role = role;
             user.socialSignInProvider = socialSignInProvider;
- 
+            user.imageUrl = imageurl;
             return user;
         }
     }

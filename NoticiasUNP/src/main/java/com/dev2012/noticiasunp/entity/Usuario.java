@@ -29,6 +29,13 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "usuario")
 public class Usuario implements Serializable {
+    @Size(max = 255)
+    @Column(name = "providerid")
+    private String providerid;
+    @Size(max = 255)
+    @Column(name = "provideruserid")
+    private String provideruserid;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,13 +57,9 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "apellidos")
     private String apellidos;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 2147483647)
     @Column(name = "clave")
     private String clave;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 2147483647)
     @Column(name = "foto")
     private String foto;
@@ -170,5 +173,20 @@ public class Usuario implements Serializable {
     public String toString() {
         return "com.dev2012.noticiasunp.entity.Usuario[ id=" + id + " ]";
     }
-    
+
+    public String getProviderid() {
+        return providerid;
+    }
+
+    public void setProviderid(String providerid) {
+        this.providerid = providerid;
+    }
+
+    public String getProvideruserid() {
+        return provideruserid;
+    }
+
+    public void setProvideruserid(String provideruserid) {
+        this.provideruserid = provideruserid;
+    }
 }

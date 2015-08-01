@@ -9,6 +9,7 @@ import com.dev2012.noticiasunp.entity.Rol;
 import com.dev2012.noticiasunp.entity.Usuario;
 import com.dev2012.noticiasunp.service.UsuarioService;
 import com.dev2012.noticiasunp.util.EncryptUtil;
+import com.dev2012.noticiasunp.util.SecurityUtil;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,18 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.UserProfile;
+import org.springframework.social.connect.web.ProviderSignInUtils;
+import org.springframework.social.facebook.api.Facebook;
+import org.springframework.social.facebook.api.impl.FacebookTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
 
 /**
  *
@@ -81,7 +88,6 @@ public class AuthenticationController {
             try {
                 UsernamePasswordAuthenticationToken token
                         = new UsernamePasswordAuthenticationToken(usuario.getCorreo(), usuario.getClave());
-                usuario.setFoto("default");
                 usuario.setRol(new Rol(1));
                 usuario.setClave(EncryptUtil.toSHA1(usuario.getClave()));
                 usuarioService.save(usuario);
@@ -97,5 +103,36 @@ public class AuthenticationController {
         }
 
         return map;
+    }
+
+    @RequestMapping(value = "/user/register.html", method = RequestMethod.GET)
+    public String registerOrLoginSocialUser(WebRequest request) {
+        Connection<?> connection = ProviderSignInUtils.getConnection(request);
+
+        if (connection != null) {
+            String providerId = connection.getKey().getProviderId();
+            String providerUserId = connection.getKey().getProviderUserId();
+
+            Usuario usuario = usuarioService.buscarPorProviderYuserId(providerId, providerUserId);
+
+            if (usuario == null) {
+                UserProfile profile = connection.fetchUserProfile();
+                usuario = new Usuario();
+                usuario.setNombre(profile.getFirstName());
+                usuario.setApellidos(profile.getLastName());
+                usuario.setCorreo(profile.getEmail());
+                usuario.setFoto(connection.getImageUrl());
+                usuario.setClave(null);
+                usuario.setProviderid(providerId);
+                usuario.setProvideruserid(providerUserId);
+                usuario.setRol(new Rol(1));
+
+                usuarioService.save(usuario);
+            }
+
+            SecurityUtil.logInUserSocial(usuario);
+        }
+
+        return "redirect:/index.html";
     }
 }
