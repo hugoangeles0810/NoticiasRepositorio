@@ -10,6 +10,7 @@ import com.dev2012.noticiasunp.service.CategoriaService;
 import com.dev2012.noticiasunp.service.NoticiaCategoriaService;
 import com.dev2012.noticiasunp.service.NoticiaService;
 import com.dev2012.noticiasunp.service.UsuarioService;
+import com.dev2012.noticiasunp.util.Paginacion;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
@@ -121,6 +122,18 @@ public class EditorController {
         Map<String, Object> map = new HashMap();
         map.put("valido", noticiaService.buscarNoticiaPorEnlace(enlace) == null);
         return map;
+    }
+    
+    @RequestMapping(value = "/noticias/paginacion.json", method = RequestMethod.GET)
+    @ResponseBody
+    public Paginacion pagination(@RequestParam("order") String order,
+                                    @RequestParam("limit") Integer limit,
+                                    @RequestParam("offset") Integer offset,
+                                    @RequestParam(value = "search", defaultValue = "") String search){
+        
+        String emailEditor = SecurityContextHolder.getContext().getAuthentication().getName();
+        
+        return noticiaService.paginacionEditor(order, limit, offset, emailEditor, search);
     }
 
 }

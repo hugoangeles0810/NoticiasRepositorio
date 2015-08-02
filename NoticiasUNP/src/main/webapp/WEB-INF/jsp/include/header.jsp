@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/libs/css/font-awesome.min.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/libs/css/bootstrap-social.min.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/libs/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/libs/css/bootstrap-table.min.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/estilos.css" />
     </head>
     <body>

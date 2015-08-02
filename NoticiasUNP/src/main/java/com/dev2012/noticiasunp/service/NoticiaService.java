@@ -6,6 +6,7 @@
 package com.dev2012.noticiasunp.service;
 
 import com.dev2012.noticiasunp.entity.Noticia;
+import com.dev2012.noticiasunp.util.Paginacion;
 import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,4 +29,6 @@ public interface NoticiaService extends BaseService<Noticia, Integer>{
     public List<Noticia> buscarNoticiasPorEditor(String emailEditor);
     
     public List<Noticia> obtenerNoticiasEnOrdenDeCreacion();
+    
+    public Paginacion paginacionEditor(String order, Integer limit, Integer offset, String emailEditor, String search);
 }

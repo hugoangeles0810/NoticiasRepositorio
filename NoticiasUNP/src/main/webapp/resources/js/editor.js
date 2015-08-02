@@ -8,12 +8,43 @@
     var enlaceValido = false;
     var enlaceExp = /[A-Za-z0-9_-]+/;
     var enlaceUpdated = null;
-    
+    var MODIFY = 4;
+    var DELETE = 5;
+
+
     $(document).ready(function () {
+
+        var table = $("#table").bootstrapTable();
+
+        table.on("click-cell.bs.table", function (field, value, row, $element) {
+            if (value === MODIFY) {
+                $.ajax({
+                    url: '/NoticiasUNP/editor/update/index.html',
+                    type: 'POST',
+                    dataType: 'html',
+                    data: {id: $element.id},
+                    success: function (data) {
+                        $("#dialog-content").html(data);
+                        enlaceUpdated = $("#enlace").val();
+                        $("#enlace").change(validarEnlace);
+                    }
+                });
+                $("#dialog").modal('show');
+            }
+
+            if (value == DELETE) {
+                var response = confirm("¿Desea eliminar el registro?");
+                if (response) {
+                    deleteNoticia($element.id);
+                }
+            }
+        });
 
         $(".delete").click(function () {
             var parent = $(this).parent().parent();
-            var id = parent[0].id;
+            var id = parent[0];
+
+            console.log(parent);
 
             var response = confirm("¿Desea eliminar el registro?");
             if (response) {
@@ -62,13 +93,13 @@
     });
 
     function validarEnlace() {
-        
-        if (enlaceUpdated === $("#enlace").val()){
+
+        if (enlaceUpdated === $("#enlace").val()) {
             enlaceValido = true;
             $("#alert-error").hide();
             return;
-        } 
-        
+        }
+
         $("#mini-loader").show();
         if (!$(this).val().match(enlaceExp)) {
             showAlert("El campo Enlace solo debe tener caractéres alfanumericos");
@@ -123,4 +154,15 @@
     }
 })();
 
+function showFormatter(value) {
+    return "<a href='/NoticiasUNP/noticias/" + value + ".html' target='_new' ><span class='glyphicon glyphicon-search'></span></a>";
+}
+
+function modifyFormatter(value) {
+    return "<a href='javascript:void(0);' class='update'><span class='glyphicon glyphicon-pencil'></span></a>";
+}
+
+function deleteFormatter(value) {
+    return "<a href='javascript:void(0);' class='delete'><span class='glyphicon glyphicon-remove'></span></a>";
+}
 

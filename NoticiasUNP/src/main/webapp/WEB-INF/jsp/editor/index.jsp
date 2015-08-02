@@ -18,39 +18,37 @@
         <br/>
         <div class="container">
             <div class="row">
-                <div class="col-md-offset-1 col-md-3">
+                <div class="col-md-3">
                     <a id="nueva-noticia" href="javascript:void(0);" class="btn btn-info">Nueva Noticia</a>
                 </div>
             </div>
             <br/>
             <div class="row">
-                <div class="col-md-offset-1 col-md-9">
-                    <table class="table table-bordered table-hover">
+                <div class="container">
+                    <table id="table"
+                           data-toggle="table"
+                           data-url="${pageContext.request.contextPath}/editor/noticias/paginacion.json"
+                           data-height="500"
+                           data-side-pagination="server"
+                           data-pagination="true"
+                           data-page-list="[5, 10, 15]"
+                           data-unique-id="id"
+                           data-locale="es-SP"
+                           data-search="true">
                         <thead>
-                            <tr class="success">
-                                <th>Titulo</th>
-                                <th>Descripcion</th>
-                                <th class="text-center">Ver</th>
-                                <th class="text-center">Modificar</th>
-                                <th class="text-center">Eliminar</th>
+                            <tr>
+                                <th data-field="posicion">#</th>
+                                <th data-field="titulo">Titulo</th>
+                                <th data-field="descripcion">Descripcion</th>
+                                <th data-field="enlace" data-formatter="showFormatter" data-align="center" >Ver</th>
+                                <th data-formatter="modifyFormatter" data-align="center" >Modificar</th>
+                                <th data-formatter="deleteFormatter" data-align="center" >Eliminar</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <c:forEach var="noticia" items="${noticias}">
-                                <tr id="${noticia.id}">
-                                    <td>${noticia.titulo}</td>
-                                    <td>${noticia.descripcion}</td>
-                                    <td class="text-center"><a href="${pageContext.request.contextPath}/noticias/${noticia.enlace}.html"><span class="glyphicon glyphicon-search"></span></a></td>
-                                    <td class="text-center"><a href="javascript:void(0);" class="update"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                                    <td class="text-center"><a href="javascript:void(0);" class="delete"><span class="glyphicon glyphicon-remove"></span></a></td>
-                                </tr>
-                            </c:forEach>               
-                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        <div id="push"></div>
     </section> 
 </div>
 <div id="dialog" class="modal fade" tabindex="-1" role="dialog">

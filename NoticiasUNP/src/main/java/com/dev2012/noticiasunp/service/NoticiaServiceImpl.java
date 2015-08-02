@@ -6,14 +6,18 @@
 package com.dev2012.noticiasunp.service;
 
 import com.dev2012.noticiasunp.config.Constantes;
+import com.dev2012.noticiasunp.dto.NoticiaDTO;
 import com.dev2012.noticiasunp.entity.Categoria;
 import com.dev2012.noticiasunp.entity.Noticia;
 import com.dev2012.noticiasunp.entity.NoticiaCategoria;
 import com.dev2012.noticiasunp.repository.NoticiaRepository;
 import com.dev2012.noticiasunp.util.Criterio;
+import com.dev2012.noticiasunp.util.Paginacion;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -144,6 +148,36 @@ public class NoticiaServiceImpl extends BaseServiceImpl<Noticia, Integer>
         }
         
         update(noticeUpdate);
+    }
+
+    @Override
+    public Paginacion paginacionEditor(String order, 
+            Integer limit, Integer offset, String emailEditor, String search) {
+        
+        List<NoticiaDTO> noticiaDTOs = new ArrayList();
+        Criterio filtro = Criterio.forClass(Noticia.class);
+        filtro.createCriteria("usuario").add(Restrictions.eq("correo", emailEditor));
+        filtro.add(Restrictions.ilike("titulo", "%"+search+"%", MatchMode.ANYWHERE));
+        
+        Long total = countResultForCriteria(filtro);
+        
+        filtro.setMaxResults(limit);
+        filtro.setFirstResult(offset);
+        List<Noticia> noticias = searchForCriteria(filtro);
+        
+        if (noticias!= null && !noticias.isEmpty()) {
+            Integer posicion = offset;
+            for (Noticia noticia : noticias) {
+                NoticiaDTO n = new NoticiaDTO(noticia.getId(), 
+                        noticia.getTitulo(), noticia.getDescripcion(), noticia.getEnlace());
+                n.setPosicion(++posicion);
+                noticiaDTOs.add(n);
+            }
+        }
+        
+        Paginacion pagina = new Paginacion(total, noticiaDTOs);
+        
+        return pagina;
     }
     
 }
