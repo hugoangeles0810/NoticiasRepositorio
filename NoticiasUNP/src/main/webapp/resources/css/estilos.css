@@ -48,6 +48,37 @@ html, body {
     margin: 2.5px;
 }
 
+.banner-container
+{
+    margin: 0 auto;
+    width: 650px;
+}
+
+.banner-image
+{
+    position: relative;
+    bottom: 0px;
+}
+
+.banner-descripcion
+{
+    position: relative;
+    bottom: 50px;
+    background: rgba(34, 34, 34, 0.9);
+    color: white;
+    text-align: center;
+    font-weight:  bold;
+    height: 50px;
+    line-height: 50px;
+}
+
+.banner-descripcion-text
+{
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+
 .fixed-bottom
 {
     position: static;
