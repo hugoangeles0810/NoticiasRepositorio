@@ -27,6 +27,7 @@ public class CategoriaServiceTest extends AbstractTestSuite{
         
         Categoria created = new Categoria();
         created.setNombre("Prueba");
+	created.setEnlace("prueba-enlace-001");
         categoriaService.save(created);
         assertNotNull(created.getId());
         System.out.println("Categoria agregada Id: " + created.getId());
