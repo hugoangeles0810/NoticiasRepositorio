@@ -78,6 +78,9 @@ public class Noticia implements Serializable {
     private Usuario usuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "noticia", fetch = FetchType.LAZY)
     private List<NoticiaCategoria> noticiaCategoriaList;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "noticia", fetch = FetchType.LAZY)
+    private List<Comentario> comentarios;
 
     public Noticia() {
     }
@@ -175,6 +178,14 @@ public class Noticia implements Serializable {
 
     public void setNoticiaCategoriaList(List<NoticiaCategoria> noticiaCategoriaList) {
         this.noticiaCategoriaList = noticiaCategoriaList;
+    }
+
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
     }
 
     @Override

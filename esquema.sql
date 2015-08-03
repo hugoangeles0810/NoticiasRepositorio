@@ -59,6 +59,16 @@ CREATE TABLE public.noticia (
                 CONSTRAINT noticia_pk PRIMARY KEY (id)
 );
 
+CREATE SEQUENCE public.comentario_id_seq;
+
+CREATE TABLE public.comentario (
+                id INTEGER NOT NULL DEFAULT nextval('public.comentario_id_seq'),
+                usuario_id INTEGER NOT NULL,
+                noticia_id INTEGER NOT NULL,
+                contenido VARCHAR NOT NULL,
+                fecha TIMESTAMP NOT NULL,
+                CONSTRAINT comentario_pk PRIMARY KEY (id)
+);
 
 ALTER SEQUENCE public.noticia_id_seq OWNED BY public.noticia.id;
 
@@ -100,7 +110,21 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
+ALTER TABLE public.comentario ADD CONSTRAINT usuario_comentario_fk
+FOREIGN KEY (usuario_id)
+REFERENCES public.usuario (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
 ALTER TABLE public.noticia_categoria ADD CONSTRAINT noticia_noticia_categoria_fk
+FOREIGN KEY (noticia_id)
+REFERENCES public.noticia (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE public.comentario ADD CONSTRAINT noticia_comentario_fk
 FOREIGN KEY (noticia_id)
 REFERENCES public.noticia (id)
 ON DELETE NO ACTION

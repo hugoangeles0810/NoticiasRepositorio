@@ -22,7 +22,7 @@
             $("#logo-img").shakeit(2, 8, 600);
         });
 
-        $("#btn-login").click(function () {
+        $(".login").click(function () {
             $.ajax({
                 url: '/NoticiasUNP/login.html',
                 type: 'GET',
@@ -79,7 +79,6 @@
                                 } else {
                                     window.location.reload();
                                 }
-                                console.log(data);
                             },
                             error: function (error) {
                                 console.log(error);
@@ -90,8 +89,57 @@
                 }
             });
         });
+        
+        $("#form-comment").submit(function(e){
+            e.preventDefault();
+            console.log($("#form-comment").serialize());
+            $.ajax({
+                url: "/NoticiasUNP/comentario/new/index.json",
+                type: 'POST',
+                dataType: 'json',
+                data: $("#form-comment").serialize(),
+                success: function(data){
+                    console.log("Data");
+                    console.log(data);
+                    if (data.success){
+                        agregarComentario(data.comentario);
+                        $("#contenido").val("");
+                    } else {
+                        alert("Lo sentimos no pudimos registrar tu comentario");
+                    }
+                },
+                error: function(error){
+                    console.log(error);
+                }
+            });
+        });
 
     });
+    
+    function agregarComentario(comentario){
+        var comentarioHtml = $("<div class='row'>"+
+                    "<div class='col-sm-2'>" +
+                        "<div class='thumbnail'>"+
+                            "<img class='img-responsive user-photo' src='"+ comentario.foto + "'>"+
+                        "</div>"+
+                    "</div>"+
+                    
+                    "<div class='col-sm-10'>"+
+                        "<div class='panel panel-default'>"+
+                            "<div class='panel-heading'>"+
+                                "<strong>" + comentario.usuario + "</strong> <span class='text-muted'>&nbsp; " + 
+                                new Date(comentario.fecha).format('dd/mm/yyyy HH:MM')+
+                        "</span>"+
+                            "</div>"+
+                            "<div class='panel-body'>"+
+                                comentario.contenido +
+                            "</div>"+
+                        "</div>"+
+                    "</div>"+
+                "</div>");
+        
+        $("#comentarios").prepend(comentarioHtml);
+    }
 })();
 
 jQuery.fn.shakeit = function (intShakes, intDistance, intDuration) {

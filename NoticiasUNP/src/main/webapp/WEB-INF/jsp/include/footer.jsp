@@ -43,6 +43,7 @@
 
 </footer>
 
+<script src="${pageContext.request.contextPath}/resources/libs/js/format.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/libs/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/libs/js/jquery.jsonify.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/libs/js/bootstrap.min.js"></script>

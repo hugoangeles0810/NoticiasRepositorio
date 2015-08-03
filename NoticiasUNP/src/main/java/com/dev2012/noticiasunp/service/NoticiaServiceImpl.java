@@ -17,6 +17,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.FetchMode;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -72,7 +73,9 @@ public class NoticiaServiceImpl extends BaseServiceImpl<Noticia, Integer>
     public Noticia buscarNoticiaPorEnlace(String enlace) {
         Criterio filtro = Criterio.forClass(Noticia.class);
         filtro.add(Restrictions.eq("enlace", enlace));
-        
+        filtro.setFetchMode("comentarios", FetchMode.EAGER)
+                .setFetchMode("usuario", FetchMode.EAGER);
+                
         List<Noticia> list = searchForCriteria(filtro);
         
         if (list != null && !list.isEmpty()) {

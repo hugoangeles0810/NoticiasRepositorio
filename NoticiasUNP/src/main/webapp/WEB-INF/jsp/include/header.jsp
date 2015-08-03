@@ -51,7 +51,7 @@
                                 <a id="btn-register" class="btn btn-primary btn-login">Registrarse</a>
                             </div>
                             <div class="row">
-                                <a id="btn-login" class="btn btn-primary btn-login">Inicia Sesión</a>
+                                <a id="btn-login" class="btn btn-primary btn-login login">Inicia Sesión</a>
                             </div>
                         </sec:authorize>
                         <sec:authorize access="isAuthenticated()">
