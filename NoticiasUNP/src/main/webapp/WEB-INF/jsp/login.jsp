@@ -28,7 +28,7 @@
             <div class="col-sm-offset-2 col-sm-8">
                 <input type="submit" value="Entrar" class="btn btn-block btn-primary" />
                 <a class="btn btn-block btn-social btn-facebook" href="${pageContext.request.contextPath}/auth/facebook?scope=email">
-                    <i class="fa fa-facebook"></i>Entrar con Facebook
+                    <i class="fa fa-facebook"></i>Entra con Facebook
                 </a>
             </div>
         </div>
