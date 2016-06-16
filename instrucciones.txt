@@ -1,0 +1,34 @@
+﻿Guia de instalación de la aplicación web NoticiasUNP
+Integrantes:
+Adrianzen Adanaque, Carlos
+Angeles Chavez, Hugo
+Correa Mantilla, Roberto
+
+Requisitos:
+JAVA JDK o JRE 1.7
+Postgresql 9.x
+Servidor web java Tomcat, Glassfish, etc.
+El servidor usado en desarrollo fue Tomcat 8.0.15
+Servidor web Apache
+En desarrollo se uso el Apache que viene con AppServ
+
+Instrucciones
+Crear una base de datos en Postgresql con nombre “noticias”
+Ejecutar los scripts esquema.sql y data.sql en ese orden.
+Crear unas carpetas NoticasUNP>images en la direccion de nuestra carpeta de apache 
+quedaria asi ~(ruta del apache)/www/NoticiasUNP/images
+Modificar el archivo Constantes.java en el paquete com.dev2012.noticiasunp.config
+	cambiar la variable DIR_IMAGE = ~(ruta del apache)/www/NoticiasUNP
+la datos de la conexion a base de datos por defecto son:
+jdbc.driverClassName=org.postgresql.Driver
+jdbc.url=jdbc:postgresql://localhost:5432/noticias
+jdbc.username=noticias
+jdbc.password=noticias
+	Para cambiar estos valores por los propios para los cual modificar el archivo 
+	/WEB-INF/application.properties en la carpeta del proyecto.
+
+Nota: los usuarios por defecto son:
+username: hugoangeles0810@gmail.com password:angeles
+username: calbert0512012017@gmail.com password:adrianzen
+username: robertocorrea20@gmail.com password:correa
+

@@ -162,7 +162,6 @@
             <artifactId>postgresql</artifactId>
             <version>9.3-1101-jdbc3</version>
         </dependency>
-
   	
         <!-- JUnit -->
         <dependency>

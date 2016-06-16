@@ -6,20 +6,21 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
     
     <mvc:annotation-driven />
     <context:component-scan base-package="com.dev2012.noticiasunp.repository" />
     <context:component-scan base-package="com.dev2012.noticiasunp.service" />
     
-    <bean id="propertyConfigurer"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-          p:location="/WEB-INF/application.properties" />
-
+    <context:property-placeholder location="/WEB-INF/application.properties"/>
+    <util:properties id="propertyConfigured" location="/WEB-INF/application.properties"/>
+    
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource"
           p:driverClassName="${jdbc.driverClassName}"
@@ -29,20 +30,20 @@
 
     <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-          <property name="dataSource" ref="dataSource" />
-          <property name="packagesToScan" value="com.dev2012.noticiasunp.entity" />
-          <property name="hibernateProperties">
-              <props>
-                  <prop key="hibernate.dialect">${hibernate.dialect}</prop>
-                  <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
-              </props>
-          </property>
-      </bean>    
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan" value="com.dev2012.noticiasunp.entity" />
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+            </props>
+        </property>
+    </bean>    
       
-      <tx:annotation-driven transaction-manager="transactionManager" />
+    <tx:annotation-driven transaction-manager="transactionManager" />
       
-      <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-          <property name="sessionFactory" ref="sessionFactory" />
-      </bean>
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
 
 </beans>

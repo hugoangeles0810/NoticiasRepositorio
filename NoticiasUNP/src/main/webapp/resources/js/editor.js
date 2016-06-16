@@ -134,23 +134,23 @@
 
     function deleteNoticia(id) {
         $.ajax({
-            url: "/NoticiasUNP/editor/delete/index.json",
+            url: "/NoticiasUNP/editor/delete/index.html",
             type: 'POST',
-            dataType: 'json',
-            data: id,
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("Accept", "application/json");
-                xhr.setRequestHeader("Content-Type", "application/json");
-            },
+            dataType: 'html',
+            data: "id="+id,
             success: function (data) {
+                console.log(data);
                 if (data.success) {
                     window.location.reload();
                 } else {
                     alert("Ocurrio un error al borrar el registro.");
                 }
+            },
+            error: function(){
+                window.location.reload();
             }
-
         });
+        
     }
 })();
 

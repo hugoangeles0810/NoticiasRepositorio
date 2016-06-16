@@ -72,9 +72,9 @@ public class EditorController {
         return mv;
     }
 
-    @RequestMapping(value = "/delete/index.json", method = RequestMethod.POST)
+    @RequestMapping(value = "/delete/index.html", method = RequestMethod.POST)
     public @ResponseBody
-    Map<String, Object> deleteNoticia(@RequestBody Integer id) {
+    Map<String, Object> deleteNoticia(@RequestParam("id") Integer id) {
         Map<String, Object> map = new HashMap();
         System.out.println(id);
         try {
@@ -98,8 +98,8 @@ public class EditorController {
             @RequestParam("bannerLarge") MultipartFile bannerLarge)
             throws UnsupportedEncodingException {
         Noticia noticia = new Noticia();
-        noticia.setTitulo(new String(titulo.getBytes("iso-8859-1"), "UTF-8"));
-        noticia.setContenido(new String(contenido.getBytes("iso-8859-1"), "UTF-8"));
+        noticia.setTitulo(titulo);
+        noticia.setContenido(contenido);
         noticia.setDescripcion(new String(descripcion.getBytes("iso-8859-1"), "UTF-8"));
         noticia.setEnlace(enlace);
 

@@ -6,11 +6,14 @@
 package com.dev2012.noticiasunp.service;
 
 import com.dev2012.noticiasunp.entity.Comentario;
+import java.util.List;
 
 /**
  *
  * @author Hugo
  */
 public interface ComentarioService extends BaseService<Comentario, Integer>{
+    
+    public List<Comentario> obtenerComentarioPorNoticiaId(Integer id);
     
 }

@@ -11,8 +11,6 @@
        http://www.springframework.org/schema/social/twitter http://www.springframework.org/schema/social/spring-social-twitter.xsd
        http://www.springframework.org/schema/social/facebook http://www.springframework.org/schema/social/spring-social-facebook.xsd">
        
-    <!-- Ensures that configuration properties are read from a property file -->
-    <context:property-placeholder location="/WEB-INF/application.properties"/>
     
     <!--
         Configures the connection repository. This application uses JDBC

@@ -19,6 +19,7 @@
                 <h4><a href="${pageContext.request.contextPath}/noticias/${noticia.enlace}.html">${noticia.titulo}</a></h4>
                 <p><fmt:formatDate type="both" pattern="dd MMMM 'de' yyyy, HH:mm" value="${noticia.fechaPublicacion}"/></p>
                 <p>${noticia.descripcion}</p>
+                <p style="text-align: right"><a class="btn btn-danger" h href="${pageContext.request.contextPath}/noticias/${noticia.enlace}.html">Ver más</a></p>
             </article>
         </c:forEach>
     </section> 

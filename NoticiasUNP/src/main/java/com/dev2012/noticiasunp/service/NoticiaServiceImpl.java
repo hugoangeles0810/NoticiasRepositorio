@@ -17,7 +17,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.hibernate.FetchMode;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -38,6 +37,9 @@ public class NoticiaServiceImpl extends BaseServiceImpl<Noticia, Integer>
 
     @Autowired
     private NoticiaCategoriaService noticiaCategoriaService;
+    
+    @Autowired
+    private ComentarioService comentarioService;
     
     @Autowired
     public NoticiaServiceImpl(NoticiaRepository publicacionRepository) {
@@ -73,13 +75,14 @@ public class NoticiaServiceImpl extends BaseServiceImpl<Noticia, Integer>
     public Noticia buscarNoticiaPorEnlace(String enlace) {
         Criterio filtro = Criterio.forClass(Noticia.class);
         filtro.add(Restrictions.eq("enlace", enlace));
-        filtro.setFetchMode("comentarios", FetchMode.EAGER)
-                .setFetchMode("usuario", FetchMode.EAGER);
-                
+        
         List<Noticia> list = searchForCriteria(filtro);
         
         if (list != null && !list.isEmpty()) {
-            return list.get(0);
+            Noticia noticia = list.get(0);
+            noticia.setComentarios(
+                    comentarioService.obtenerComentarioPorNoticiaId(noticia.getId()));
+            return noticia;
         }
         
         return null;
@@ -147,7 +150,7 @@ public class NoticiaServiceImpl extends BaseServiceImpl<Noticia, Integer>
         if (bannerLarge.getSize() > 0) {
             File fLarge = new File(Constantes.DIR_IMAGES + noticeUpdate.getId() + "-large-" + bannerLarge.getOriginalFilename());
             imageService.saveImage(bannerLarge, fLarge);
-            noticeUpdate.setBannerSmall(fLarge.getName());
+            noticeUpdate.setBannerLarge(fLarge.getName());
         }
         
         update(noticeUpdate);
